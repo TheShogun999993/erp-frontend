@@ -25,6 +25,13 @@
         .fade-in {
             animation: fadeIn 0.5s ease-out forwards;
         }
+        .report-card, .farm-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .report-card:hover, .farm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -46,7 +53,7 @@
             <!-- Portal Selection -->
             <div class="flex flex-col md:flex-row justify-center items-center gap-8 lg:gap-12">
                 <!-- Farmer Portal Card -->
-                <a href="#" onclick="showPortal('farmer-portal-page')" class="portal-card bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm text-left">
+                <a href="#" onclick="showSection('farmer-portal-page')" class="portal-card bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm text-left">
                     <div class="bg-yellow-100 text-yellow-500 rounded-full h-16 w-16 flex items-center justify-center mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>
                     </div>
@@ -55,7 +62,7 @@
                     <span class="font-semibold text-blue-600 hover:text-blue-800 transition">Go to Farmer Portal &rarr;</span>
                 </a>
                 <!-- Vet Portal Card -->
-                <a href="#" onclick="showPortal('vet-portal-page')" class="portal-card bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm text-left">
+                <a href="#" onclick="showSection('vet-portal-page')" class="portal-card bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm text-left">
                     <div class="bg-blue-100 text-blue-500 rounded-full h-16 w-16 flex items-center justify-center mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4z" clip-rule="evenodd" /></svg>
                     </div>
@@ -99,7 +106,7 @@
                         <input type="text" id="regAadhar" name="regAadhar" placeholder="Enter 12-digit Aadhar number" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required pattern="\d{12}" title="Aadhar number must be 12 digits.">
                     </div>
                     <div class="flex items-center justify-between pt-4">
-                         <a href="#" onclick="showPortal('main-portal-page')" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition"> &larr; Back to Portal Selection</a>
+                         <a href="#" onclick="showSection('main-portal-page')" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition"> &larr; Back to Portal Selection</a>
                          <div>
                             <button type="button" onclick="adminBypass()" class="text-xs text-gray-500 hover:text-gray-700 mr-4">Dev Bypass</button>
                             <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">
@@ -110,20 +117,39 @@
                 </form>
             </div>
         </div>
+
+        <!-- Farmer Dashboard Section -->
+        <div id="farmer-dashboard-section" class="hidden min-h-screen p-4 sm:p-6 lg:p-8">
+            <div class="container mx-auto max-w-6xl">
+                <header class="flex justify-between items-center mb-8">
+                    <div>
+                         <h1 class="text-3xl font-bold text-gray-800">Farmer Dashboard</h1>
+                         <p class="text-gray-500 mt-2">View existing reports or create a new one.</p>
+                    </div>
+                    <button id="createNewReportBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                        Create New Report
+                    </button>
+                </header>
+                <div id="report-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Report cards will be injected here by JS -->
+                </div>
+            </div>
+        </div>
         
         <!-- Farmer Management Section -->
-        <div id="farmer-management-section" class="hidden">
-             <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-6xl">
+        <div id="farmer-management-section" class="hidden p-4 sm:p-6 lg:p-8">
+             <div class="container mx-auto max-w-6xl">
                 <header class="mb-8">
                     <div class="flex items-center justify-between">
                         <div>
                             <h1 class="text-3xl font-bold text-gray-800">AMU & MRL Management</h1>
                             <p class="text-gray-500 mt-2">A comprehensive form for antimicrobial usage estimation at the farm level.</p>
                         </div>
-                        <a href="#" onclick="showPortal('main-portal-page')" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition flex items-center gap-2">
+                        <button onclick="showFarmerSection('farmer-dashboard-section')" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-                            Back to Portal
-                        </a>
+                            Back to Dashboard
+                        </button>
                     </div>
                 </header>
                 <form id="farmerAmuForm" class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg space-y-8">
@@ -132,30 +158,16 @@
                         <legend class="text-xl font-semibold text-gray-700 mb-4">1. General Information</legend>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                              <div>
-                                <label for="sampleId" class="block text-sm font-medium text-gray-600 mb-1">Sample ID*</label>
-                                <input type="text" id="sampleId" name="sampleId" pattern="\d*" title="Please enter numbers only." placeholder="Numbers only" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                                <label for="animalId" class="block text-sm font-medium text-gray-600 mb-1">Animal ID*</label>
+                                <input type="text" id="animalId" name="animalId" pattern="\d*" title="Please enter numbers only." placeholder="Numbers only" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
                             </div>
                             <div>
-                                <label for="state" class="block text-sm font-medium text-gray-600 mb-1">State*</label>
-                                <select id="state" name="state" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
-                                    <option value="">Select State</option>
-                                    <option>Andhra Pradesh</option>
-                                    <option>Uttar Pradesh</option>
-                                    <option>West Bengal</option>
-                                    <option>Other</option>
-                                </select>
+                                <label for="animalType" class="block text-sm font-medium text-gray-600 mb-1">Animal Type*</label>
+                                <input type="text" id="animalType" name="animalType" placeholder="e.g., Rohu, Catla, Shrimp" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
                             </div>
                             <div>
-                                <label for="district" class="block text-sm font-medium text-gray-600 mb-1">District*</label>
-                                <input type="text" id="district" name="district" placeholder="Select District" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
-                            </div>
-                            <div>
-                                <label for="blockTaluk" class="block text-sm font-medium text-gray-600 mb-1">Block/Taluk*</label>
-                                <input type="text" id="blockTaluk" name="blockTaluk" placeholder="Select Block/Taluk" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
-                            </div>
-                             <div>
-                                <label for="village" class="block text-sm font-medium text-gray-600 mb-1">Village*</label>
-                                <input type="text" id="village" name="village" placeholder="Select Village" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                                <label for="animalPen" class="block text-sm font-medium text-gray-600 mb-1">Animal Pen*</label>
+                                <input type="text" id="animalPen" name="animalPen" placeholder="e.g., Pen-A, Cage-3" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
                             </div>
                         </div>
                     </fieldset>
@@ -183,66 +195,168 @@
                 </form>
             </div>
         </div>
+
+        <!-- Report View Section -->
+        <div id="report-view-section" class="hidden p-4 sm:p-6 lg:p-8">
+            <div class="container mx-auto max-w-4xl">
+                 <header class="mb-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-800">Report Details</h1>
+                        </div>
+                        <button onclick="showFarmerSection('farmer-dashboard-section')" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            Back to Dashboard
+                        </button>
+                    </div>
+                </header>
+                <div id="report-details-content" class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg space-y-6">
+                    <!-- Report details will be injected here by JS -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Vet Portal Page -->
     <div id="vet-portal-page" class="hidden">
-        <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-4xl">
-            <header class="mb-8">
-                 <div class="flex items-center justify-between">
+        
+        <!-- Vet Login Section -->
+        <div id="vet-login-section" class="min-h-screen flex items-center justify-center p-4">
+            <div class="max-w-xl w-full">
+                <header class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800">Veterinarian Login</h1>
+                    <p class="text-gray-500 mt-2">Please enter your credentials to access your dashboard.</p>
+                </header>
+                <form id="vetLoginForm" class="bg-white p-8 rounded-2xl shadow-lg space-y-6">
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-800">Veterinarian Visit Report</h1>
-                        <p class="text-gray-500 mt-2">A streamlined form for recording visit details and treatments.</p>
+                        <label for="vetLicense" class="block text-sm font-medium text-gray-600 mb-1">License Number*</label>
+                        <input type="text" id="vetLicense" name="vetLicense" placeholder="Enter your license number" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
                     </div>
-                    <a href="#" onclick="showPortal('main-portal-page')" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition flex items-center gap-2">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-                        Back to Portal
-                    </a>
-                </div>
-            </header>
-            <form id="vetVisitForm" class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg space-y-8">
-                 <fieldset class="border-b-2 border-blue-100 pb-6">
-                    <legend class="text-xl font-semibold text-gray-700 mb-4">1. Visit Details</legend>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="vetFarmName" class="block text-sm font-medium text-gray-600 mb-1">Farm Name*</label>
-                            <input type="text" id="vetFarmName" name="vetFarmName" placeholder="Enter farm name" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
-                        </div>
-                        <div>
-                            <label for="vetFarmId" class="block text-sm font-medium text-gray-600 mb-1">Farm ID*</label>
-                            <input type="text" id="vetFarmId" name="vetFarmId" placeholder="Enter farm ID" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
-                        </div>
-                        <div>
-                            <label for="vetDateOfVisit" class="block text-sm font-medium text-gray-600 mb-1">Date of Visit*</label>
-                            <input type="date" id="vetDateOfVisit" name="vetDateOfVisit" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
-                        </div>
-                        <div>
-                            <label for="vetName" class="block text-sm font-medium text-gray-600 mb-1">Name of Vet / Officer*</label>
-                            <input type="text" id="vetName" name="vetName" placeholder="Enter your name" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
-                        </div>
+                     <div>
+                        <label for="vetPassword" class="block text-sm font-medium text-gray-600 mb-1">Password*</label>
+                        <input type="password" id="vetPassword" name="vetPassword" placeholder="Enter your password" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
                     </div>
-                </fieldset>
-                 <fieldset class="border-b-2 border-blue-100 pb-6">
-                    <legend class="text-xl font-semibold text-gray-700 mb-4">2. Prescribed/Administered Feed-Based AMU</legend>
-                    <div id="vet-feed-amu-container" class="space-y-6"></div>
-                    <button type="button" id="vetAddFeedBtn" class="mt-4 flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" /></svg>
-                        Add Medicated Feed Record
-                    </button>
-                </fieldset>
-                <fieldset>
-                    <legend class="text-xl font-semibold text-gray-700 mb-4">3. Prescribed/Administered Other AMU Sources</legend>
-                    <div id="vet-other-amu-container" class="space-y-6"></div>
-                     <button type="button" id="vetAddOtherSourceBtn" class="mt-4 flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" /></svg>
-                        Add Other AMU Record
-                    </button>
-                </fieldset>
-                <div class="flex justify-end pt-6">
-                    <button type="submit" class="w-full md:w-auto bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">Submit Visit Report</button>
-                </div>
-            </form>
+                    <div class="flex items-center justify-between pt-4">
+                         <a href="#" onclick="showSection('main-portal-page')" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition"> &larr; Back to Portal Selection</a>
+                         <div>
+                            <button type="button" onclick="vetAdminBypass()" class="text-xs text-gray-500 hover:text-gray-700 mr-4">Dev Bypass</button>
+                            <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">
+                                Login
+                            </button>
+                         </div>
+                    </div>
+                </form>
+            </div>
         </div>
+
+        <!-- Vet Dashboard Section -->
+        <div id="vet-dashboard-section" class="hidden min-h-screen p-4 sm:p-6 lg:p-8">
+            <div class="container mx-auto max-w-7xl">
+                <!-- Profile Header -->
+                <div id="vet-profile-header" class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+                    <!-- Vet profile content injected here -->
+                </div>
+
+                <!-- Farms Section -->
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Registered Farms</h2>
+                <div id="farm-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Farm cards injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Vet Farm Reports Section -->
+        <div id="vet-farm-reports-section" class="hidden min-h-screen p-4 sm:p-6 lg:p-8">
+            <div class="container mx-auto max-w-6xl">
+                 <header class="flex justify-between items-center mb-8">
+                    <div>
+                         <h1 id="farm-report-title" class="text-3xl font-bold text-gray-800"></h1>
+                         <p class="text-gray-500 mt-2">View existing reports or file a new one for this farm.</p>
+                    </div>
+                    <div>
+                        <button onclick="showVetSection('vet-dashboard-section')" class="text-sm font-medium text-gray-600 hover:text-gray-800 transition mr-4"> &larr; Back to Dashboard</button>
+                        <button id="fileNewVetReportBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                            File New Report
+                        </button>
+                    </div>
+                </header>
+                <div id="vet-report-list" class="space-y-4">
+                    <!-- Vet reports for a specific farm will be injected here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Vet Management (Report Filing) Section -->
+        <div id="vet-management-section" class="hidden p-4 sm:p-6 lg:p-8">
+             <div class="container mx-auto max-w-4xl">
+                 <header class="mb-8">
+                     <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-800">Veterinarian Visit Report</h1>
+                            <p class="text-gray-500 mt-2">File a new report for the selected farm.</p>
+                        </div>
+                        <button id="backToFarmReportsBtn" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            Back to Farm Reports
+                        </button>
+                    </div>
+                </header>
+                <form id="vetVisitForm" class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg space-y-8">
+                     <fieldset class="border-b-2 border-blue-100 pb-6">
+                        <legend class="text-xl font-semibold text-gray-700 mb-4">1. Visit Details</legend>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                             <div>
+                                <label for="vetVisitDate" class="block text-sm font-medium text-gray-600 mb-1">Date of Visit*</label>
+                                <input type="date" id="vetVisitDate" name="vetVisitDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                            </div>
+                            <div>
+                                <label for="vetReason" class="block text-sm font-medium text-gray-600 mb-1">Reason for Visit*</label>
+                                <input type="text" id="vetReason" name="vetReason" placeholder="e.g., Routine Checkup, Disease Outbreak" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="border-b-2 border-blue-100 pb-6">
+                        <legend class="text-xl font-semibold text-gray-700 mb-4">2. Notes/Findings</legend>
+                        <div>
+                            <label for="vetNotes" class="sr-only">Notes/Findings</label>
+                            <textarea id="vetNotes" name="vetNotes" rows="5" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" placeholder="Enter your clinical observations, water quality readings, diagnoses, etc."></textarea>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="text-xl font-semibold text-gray-700 mb-4">3. Follow-up Actions</legend>
+                         <div>
+                            <label for="vetFollowUp" class="sr-only">Follow-up Actions</label>
+                            <textarea id="vetFollowUp" name="vetFollowUp" rows="4" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" placeholder="Enter required actions, next scheduled visit, recommendations for the farmer, etc."></textarea>
+                        </div>
+                    </fieldset>
+                    <div class="flex justify-end pt-6">
+                        <button type="submit" class="w-full md:w-auto bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">Submit Visit Report</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Vet Report View Section -->
+        <div id="vet-report-view-section" class="hidden p-4 sm:p-6 lg:p-8">
+            <div class="container mx-auto max-w-4xl">
+                 <header class="mb-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 id="vet-report-detail-title" class="text-3xl font-bold text-gray-800">Report Details</h1>
+                        </div>
+                        <button onclick="viewFarmReports(currentFarmId)" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            Back to Farm Reports
+                        </button>
+                    </div>
+                </header>
+                <div id="vet-report-details-content" class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg space-y-6">
+                    <!-- Vet report details will be injected here by JS -->
+                </div>
+            </div>
+        </div>
+
     </div>
     
     <!-- Shared Success Modal -->
@@ -262,28 +376,200 @@
     </div>
 
     <script>
-        // --- Portal Navigation ---
-        const pages = document.querySelectorAll('[id$="-portal-page"]');
-        const farmerRegistrationSection = document.getElementById('farmer-registration-section');
-        const farmerManagementSection = document.getElementById('farmer-management-section');
+        // --- Mock Data Store ---
+        let farmerReports = [
+            { id: 1, submissionDate: '2025-09-05', general: { animalId: '101', animalType: 'Rohu', animalPen: 'Pen-A' }, feedAmu: [{ feedName: 'GrowFeed-500', amu: 'Oxytetracycline', dosage: '10 mg/kg', startDate: '2025-09-01' }], otherAmu: [] },
+            { id: 2, submissionDate: '2025-09-04', general: { animalId: '215', animalType: 'Shrimp', animalPen: 'Cage-3' }, feedAmu: [], otherAmu: [{ sourceType: 'Bath Treatment', amu: 'Formalin', dosage: '0.05 ppm', appDate: '2025-09-03' }] },
+            { id: 3, submissionDate: '2025-09-02', general: { animalId: '302', animalType: 'Catla', animalPen: 'Pen-B' }, feedAmu: [{ feedName: 'Starter-Plus', amu: 'Enrofloxacin', dosage: '8 mg/kg', startDate: '2025-08-28' }], otherAmu: [{ sourceType: 'Injection', amu: 'Ampicillin', dosage: '5 mg/kg', appDate: '2025-09-01' }] }
+        ];
 
-        function showPortal(pageId) {
-            pages.forEach(page => {
-                page.classList.toggle('hidden', page.id !== pageId);
-            });
-            // Reset farmer portal to registration view when returning to main menu
-            if (pageId === 'main-portal-page') {
-                farmerRegistrationSection.classList.remove('hidden');
-                farmerManagementSection.classList.add('hidden');
-            }
+        const vetProfile = {
+            name: 'Dr. Emily Carter',
+            clinic: 'Healthy Hooves Veterinary Clinic',
+            license: '#VET-12345',
+            contact: '(555) 123-4567 | dr.carter@healthyhooves.com',
+            address: '123 Farm Road, Countryside, CO'
+        };
+
+        const farms = [
+            { id: 101, name: 'Sunrise Fisheries', location: 'Coastal Region', primarySpecies: 'Shrimp' },
+            { id: 102, name: 'Clearwater Aquatics', location: 'Inland Valley', primarySpecies: 'Rohu, Catla' },
+            { id: 103, name: 'Bluefin Marine Farms', location: 'Offshore Pens', primarySpecies: 'Tuna' }
+        ];
+
+        let vetReports = [
+            { id: 201, farmId: 101, visitDate: '2025-09-03', reason: 'Emergency Visit - Suspected White Spot Syndrome', notes: 'Observed lethargic shrimp with white spots on the carapace. Water quality parameters (ammonia, nitrite) were elevated. Recommended immediate water change and reduction in feeding.', followUp: 'Follow-up visit scheduled for 2025-09-06 to assess treatment effectiveness. Farmer to monitor mortality rates closely.' },
+            { id: 202, farmId: 102, visitDate: '2025-09-01', reason: 'Scheduled Monthly Health Assessment', notes: 'Fish appear healthy and active. Gill swabs and skin scrapes were negative for common parasites. Water quality is within optimal ranges. Growth rate is consistent with expectations.', followUp: 'No immediate action required. Next routine visit in one month.' },
+            { id: 203, farmId: 101, visitDate: '2025-08-15', reason: 'Water Quality and Pond Prep Audit', notes: 'Pond preparation for new stocking cycle is satisfactory. Liming and fertilization have been done correctly. Water is clear with good plankton bloom starting.', followUp: 'Advised farmer to proceed with stocking as planned next week.' }
+        ];
+
+        let currentFarmId = null;
+
+        // --- Portal & Section Navigation ---
+        function showSection(sectionId) {
+            document.querySelectorAll('body > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function showFarmerSection(farmerSectionId) {
+            document.querySelectorAll('#farmer-portal-page > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(farmerSectionId).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+        
+        function showVetSection(vetSectionId) {
+            document.querySelectorAll('#vet-portal-page > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(vetSectionId).classList.remove('hidden');
             window.scrollTo(0, 0);
         }
 
         function adminBypass() {
-            console.log('Admin bypass activated.');
-            farmerRegistrationSection.classList.add('hidden');
-            farmerManagementSection.classList.remove('hidden');
-            window.scrollTo(0, 0);
+            showFarmerSection('farmer-dashboard-section');
+            renderDashboard();
+        }
+
+        function vetAdminBypass() {
+            renderVetDashboard();
+            showVetSection('vet-dashboard-section');
+        }
+
+        // --- Farmer Dashboard ---
+        const reportListContainer = document.getElementById('report-list');
+        
+        function renderDashboard() {
+            reportListContainer.innerHTML = '';
+            if (farmerReports.length === 0) {
+                reportListContainer.innerHTML = `<p class="text-gray-500 col-span-full text-center">No reports found. Create your first report!</p>`;
+                return;
+            }
+            farmerReports.sort((a, b) => new Date(b.submissionDate) - new Date(a.submissionDate)).forEach((report, index) => {
+                const reportCard = `
+                    <div class="report-card bg-white p-6 rounded-xl shadow-md cursor-pointer" onclick="viewReport(${report.id})">
+                        <div class="flex justify-between items-start">
+                             <h3 class="text-lg font-bold text-gray-800">Report for: ${report.general.animalType} (ID: ${report.general.animalId})</h3>
+                             <span class="text-xs bg-blue-100 text-blue-800 font-medium px-2.5 py-0.5 rounded-full">${report.general.animalPen}</span>
+                        </div>
+                        <p class="text-sm text-gray-400 mt-4">Submitted: ${report.submissionDate}</p>
+                    </div>`;
+                reportListContainer.insertAdjacentHTML('beforeend', reportCard);
+            });
+        }
+
+        // --- View Farmer Report ---
+        const reportDetailsContent = document.getElementById('report-details-content');
+
+        function viewReport(reportId) {
+            const report = farmerReports.find(r => r.id === reportId);
+            if (!report) return;
+
+            let detailsHtml = `
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">General Information</h3>
+                    <p class="mt-2 text-gray-600"><strong>Animal ID:</strong> ${report.general.animalId}</p>
+                    <p class="text-gray-600"><strong>Animal Type:</strong> ${report.general.animalType}</p>
+                    <p class="text-gray-600"><strong>Animal Pen:</strong> ${report.general.animalPen}</p>
+                    <p class="text-sm text-gray-400 mt-1"><strong>Submitted On:</strong> ${report.submissionDate}</p>
+                </div>`;
+            
+            detailsHtml += `<div class="border-b pb-4">
+                                <h3 class="text-lg font-semibold text-gray-800 mt-4">Feed-Based AMU</h3>
+                                ${report.feedAmu.length > 0 ? report.feedAmu.map(f => `<div class="mt-2 p-3 bg-gray-50 rounded-lg"><p><strong>Feed:</strong> ${f.feedName}</p><p><strong>Antimicrobial:</strong> ${f.amu}</p><p><strong>Dosage:</strong> ${f.dosage}</p><p><strong>Start Date:</strong> ${f.startDate}</p></div>`).join('') : '<p class="text-gray-500 mt-2">No feed-based AMU recorded.</p>'}
+                            </div>`;
+
+            detailsHtml += `<div>
+                                <h3 class="text-lg font-semibold text-gray-800 mt-4">Other AMU Sources</h3>
+                                ${report.otherAmu.length > 0 ? report.otherAmu.map(o => `<div class="mt-2 p-3 bg-gray-50 rounded-lg"><p><strong>Source:</strong> ${o.sourceType}</p><p><strong>Antimicrobial:</strong> ${o.amu}</p><p><strong>Dosage:</strong> ${o.dosage}</p><p><strong>Application Date:</strong> ${o.appDate}</p></div>`).join('') : '<p class="text-gray-500 mt-2">No other AMU sources recorded.</p>'}
+                            </div>`;
+
+            reportDetailsContent.innerHTML = detailsHtml;
+            showFarmerSection('report-view-section');
+        }
+
+        // --- Vet Portal ---
+        function renderVetDashboard() {
+            const profileHeader = document.getElementById('vet-profile-header');
+            profileHeader.innerHTML = `
+                <div class="flex flex-col md:flex-row items-start gap-6">
+                    <div class="bg-blue-500 text-white rounded-full h-20 w-20 flex items-center justify-center text-3xl font-bold flex-shrink-0">EC</div>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">${vetProfile.name}</h1>
+                        <p class="text-gray-600 font-medium">${vetProfile.clinic} | License: ${vetProfile.license}</p>
+                        <p class="text-sm text-gray-500 mt-2">${vetProfile.contact}</p>
+                        <p class="text-sm text-gray-500">${vetProfile.address}</p>
+                    </div>
+                </div>`;
+            
+            const farmListContainer = document.getElementById('farm-list');
+            farmListContainer.innerHTML = '';
+            farms.forEach(farm => {
+                const farmCard = `
+                    <div class="farm-card bg-white p-6 rounded-xl shadow-md cursor-pointer" onclick="viewFarmReports(${farm.id})">
+                        <h3 class="text-xl font-bold text-gray-800">${farm.name}</h3>
+                        <p class="text-gray-600">${farm.location}</p>
+                        <p class="text-sm bg-yellow-100 text-yellow-800 font-medium px-2.5 py-0.5 rounded-full inline-block mt-4">${farm.primarySpecies}</p>
+                    </div>`;
+                farmListContainer.insertAdjacentHTML('beforeend', farmCard);
+            });
+        }
+
+        function viewFarmReports(farmId) {
+            currentFarmId = farmId;
+            const farm = farms.find(f => f.id === farmId);
+            if (!farm) return;
+
+            document.getElementById('farm-report-title').textContent = `Reports for ${farm.name}`;
+            
+            const reportsForFarm = vetReports.filter(r => r.farmId === farmId)
+                                             .sort((a,b) => new Date(b.visitDate) - new Date(a.visitDate));
+            const reportListContainer = document.getElementById('vet-report-list');
+            reportListContainer.innerHTML = '';
+
+            if (reportsForFarm.length === 0) {
+                reportListContainer.innerHTML = `<p class="text-center text-gray-500 bg-white p-8 rounded-lg shadow">No reports filed for this farm yet.</p>`;
+            } else {
+                 reportsForFarm.forEach(report => {
+                    const reportHtml = `
+                        <div class="report-card bg-white p-4 rounded-lg shadow cursor-pointer" onclick="viewVetReport(${report.id})">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-lg text-gray-700">${report.reason}</h4>
+                                <span class="text-sm text-gray-500">Visited: ${report.visitDate}</span>
+                            </div>
+                        </div>`;
+                    reportListContainer.insertAdjacentHTML('beforeend', reportHtml);
+                });
+            }
+           
+            showVetSection('vet-farm-reports-section');
+        }
+        
+        function viewVetReport(reportId) {
+            const report = vetReports.find(r => r.id === reportId);
+            if (!report) return;
+
+            const farm = farms.find(f => f.id === report.farmId);
+            document.getElementById('vet-report-detail-title').textContent = `Report for ${farm.name}`;
+
+            const reportDetailsContainer = document.getElementById('vet-report-details-content');
+            let detailsHtml = `
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">Visit Details</h3>
+                    <p class="mt-2 text-gray-600"><strong>Reason for Visit:</strong> ${report.reason}</p>
+                    <p class="text-gray-600"><strong>Date of Visit:</strong> ${report.visitDate}</p>
+                </div>`;
+            
+            detailsHtml += `<div class="border-b pb-4">
+                                <h3 class="text-lg font-semibold text-gray-800 mt-4">Notes/Findings</h3>
+                                <p class="text-gray-600 whitespace-pre-wrap mt-2">${report.notes || 'No notes provided.'}</p>
+                            </div>`;
+
+            detailsHtml += `<div>
+                                <h3 class="text-lg font-semibold text-gray-800 mt-4">Follow-up Actions</h3>
+                                <p class="text-gray-600 whitespace-pre-wrap mt-2">${report.followUp || 'No follow-up actions specified.'}</p>
+                            </div>`;
+            
+            reportDetailsContainer.innerHTML = detailsHtml;
+            showVetSection('vet-report-view-section');
         }
 
         // --- Shared Functions & Elements ---
@@ -291,9 +577,7 @@
         const successMessage = document.getElementById('successMessage');
         const closeModalBtn = document.getElementById('closeModalBtn');
         
-        closeModalBtn.addEventListener('click', () => {
-             successModal.style.display = 'none';
-        });
+        closeModalBtn.addEventListener('click', () => { successModal.style.display = 'none'; });
         
         function handleDosageInput(event) {
             if (event.target.classList.contains('dosage-input')) {
@@ -306,91 +590,92 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             // --- Farmer Portal Logic ---
-            const registrationForm = document.getElementById('registrationForm');
-            registrationForm.addEventListener('submit', (e) => {
+            document.getElementById('registrationForm').addEventListener('submit', (e) => {
                 e.preventDefault();
-                console.log('Registration successful.');
-                // Here you could save registration data
-                farmerRegistrationSection.classList.add('hidden');
-                farmerManagementSection.classList.remove('hidden');
-                window.scrollTo(0, 0);
+                showFarmerSection('farmer-dashboard-section');
+                renderDashboard();
             });
 
+            document.getElementById('createNewReportBtn').addEventListener('click', () => {
+                document.getElementById('farmerAmuForm').reset();
+                farmerFeedContainer.innerHTML = '';
+                farmerOtherContainer.innerHTML = '';
+                addFarmerFeedEntry();
+                addFarmerOtherSourceEntry();
+                showFarmerSection('farmer-management-section');
+            });
+            
             const farmerForm = document.getElementById('farmerAmuForm');
-            const farmerAddFeedBtn = document.getElementById('farmerAddFeedBtn');
             const farmerFeedContainer = document.getElementById('farmer-feed-amu-container');
             let farmerFeedCount = 0;
-            const farmerAddOtherSourceBtn = document.getElementById('farmerAddOtherSourceBtn');
             const farmerOtherContainer = document.getElementById('farmer-other-amu-container');
             let farmerOtherSourceCount = 0;
 
             function addFarmerFeedEntry() {
                 farmerFeedCount++;
-                const html = `<div class="p-4 border border-gray-200 rounded-lg bg-white fade-in"><h4 class="font-medium text-gray-800 mb-4">Medicated Feed Record #${farmerFeedCount}</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="text-sm text-gray-600">Feed Name/Code</label><input type="text" name="farmerFeedName${farmerFeedCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div><div><label class="text-sm text-gray-600">Antimicrobial Used</label><input type="text" name="farmerFeedAmu${farmerFeedCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div><div><label class="text-sm text-gray-600">Dosage (e.g., mg/kg)</label><input type="text" name="farmerFeedDosage${farmerFeedCount}" class="dosage-input w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><p class="text-red-500 text-xs mt-1 hidden">Warning: Value is above the recommended limit of 0.1.</p></div><div><label class="text-sm text-gray-600">Application Start Date</label><input type="date" name="farmerFeedStartDate${farmerFeedCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div></div></div>`;
+                const html = `<div class="p-4 border border-gray-200 rounded-lg bg-white fade-in" data-type="feed-entry"><h4 class="font-medium text-gray-800 mb-4">Medicated Feed Record #${farmerFeedCount}</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="text-sm text-gray-600">Feed Name/Code</label><input type="text" data-field="feedName" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div><div><label class="text-sm text-gray-600">Antimicrobial Used</label><input type="text" data-field="amu" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div><div><label class="text-sm text-gray-600">Dosage (e.g., mg/kg)</label><input type="text" data-field="dosage" class="dosage-input w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><p class="text-red-500 text-xs mt-1 hidden">Warning: Value is above the recommended limit of 0.1.</p></div><div><label class="text-sm text-gray-600">Application Start Date</label><input type="date" data-field="startDate" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div></div></div>`;
                 farmerFeedContainer.insertAdjacentHTML('beforeend', html);
             }
             
             function addFarmerOtherSourceEntry() {
                 farmerOtherSourceCount++;
-                const html = `<div class="p-4 border border-gray-200 rounded-lg bg-white fade-in"><h4 class="font-medium text-gray-800 mb-4">Other AMU Record #${farmerOtherSourceCount}</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="text-sm text-gray-600">Source Type</label><select name="farmerSourceType${farmerOtherSourceCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><option>Injection</option><option>Bath Treatment</option><option>Topical</option><option>Other</option></select></div><div><label class="text-sm text-gray-600">Antimicrobial Used</label><select name="farmerOtherAmu${farmerOtherSourceCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><option value="">Select Antimicrobial...</option><option>Oxytetracycline</option><option>Althrocin</option><option>Ampicillin</option><option>Sparfloxacin</option><option>Enrofloxacin</option><option>Acriflavine</option><option>Formalin</option><option>Potassium Permanganate</option><option>Malachite Green</option><option>Tannic Acid</option><option>Other</option></select></div><div><label class="text-sm text-gray-600">Dosage / Concentration</label><input type="text" name="farmerOtherDosage${farmerOtherSourceCount}" class="dosage-input w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><p class="text-red-500 text-xs mt-1 hidden">Warning: Value is above the recommended limit of 0.1.</p></div><div><label class="text-sm text-gray-600">Application Date</label><input type="date" name="farmerApplicationDate${farmerOtherSourceCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div></div></div>`;
+                const html = `<div class="p-4 border border-gray-200 rounded-lg bg-white fade-in" data-type="other-entry"><h4 class="font-medium text-gray-800 mb-4">Other AMU Record #${farmerOtherSourceCount}</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="text-sm text-gray-600">Source Type</label><select data-field="sourceType" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><option>Injection</option><option>Bath Treatment</option><option>Topical</option><option>Other</option></select></div><div><label class="text-sm text-gray-600">Antimicrobial Used</label><select data-field="amu" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><option value="">Select Antimicrobial...</option><option>Oxytetracycline</option><option>Althrocin</option><option>Ampicillin</option><option>Sparfloxacin</option><option>Enrofloxacin</option><option>Acriflavine</option><option>Formalin</option><option>Potassium Permanganate</option><option>Malachite Green</option><option>Tannic Acid</option><option>Other</option></select></div><div><label class="text-sm text-gray-600">Dosage / Concentration</label><input type="text" data-field="dosage" class="dosage-input w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><p class="text-red-500 text-xs mt-1 hidden">Warning: Value is above the recommended limit of 0.1.</p></div><div><label class="text-sm text-gray-600">Application Date</label><input type="date" data-field="appDate" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div></div></div>`;
                 farmerOtherContainer.insertAdjacentHTML('beforeend', html);
             }
-
-            if (farmerAddFeedBtn) {
-                addFarmerFeedEntry();
-                addFarmerOtherSourceEntry();
-                farmerAddFeedBtn.addEventListener('click', addFarmerFeedEntry);
-                farmerAddOtherSourceBtn.addEventListener('click', addFarmerOtherSourceEntry);
-                farmerFeedContainer.addEventListener('input', handleDosageInput);
-                farmerOtherContainer.addEventListener('input', handleDosageInput);
-                farmerForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    console.log('Farmer Form Submitted.');
-                    successMessage.textContent = 'Your AMU data has been logged successfully.';
-                    successModal.style.display = 'flex';
-                    farmerForm.reset();
-                });
-            }
+            
+            document.getElementById('farmerAddFeedBtn').addEventListener('click', addFarmerFeedEntry);
+            document.getElementById('farmerAddOtherSourceBtn').addEventListener('click', addFarmerOtherSourceEntry);
+            farmerFeedContainer.addEventListener('input', handleDosageInput);
+            farmerOtherContainer.addEventListener('input', handleDosageInput);
+            farmerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const newReport = { id: Date.now(), submissionDate: new Date().toISOString().split('T')[0], general: { animalId: document.getElementById('animalId').value, animalType: document.getElementById('animalType').value, animalPen: document.getElementById('animalPen').value }, feedAmu: [], otherAmu: [] };
+                document.querySelectorAll('#farmer-feed-amu-container [data-type="feed-entry"]').forEach(entry => { const record = {}; entry.querySelectorAll('[data-field]').forEach(input => record[input.dataset.field] = input.value); if(record.feedName) newReport.feedAmu.push(record); });
+                document.querySelectorAll('#farmer-other-amu-container [data-type="other-entry"]').forEach(entry => { const record = {}; entry.querySelectorAll('[data-field]').forEach(input => record[input.dataset.field] = input.value); if(record.sourceType) newReport.otherAmu.push(record); });
+                farmerReports.push(newReport);
+                successMessage.textContent = 'Your AMU data has been logged successfully.';
+                successModal.style.display = 'flex';
+                farmerForm.reset();
+                showFarmerSection('farmer-dashboard-section');
+                renderDashboard();
+            });
 
             // --- Vet Portal Logic ---
-            const vetForm = document.getElementById('vetVisitForm');
-            const vetAddFeedBtn = document.getElementById('vetAddFeedBtn');
-            const vetFeedContainer = document.getElementById('vet-feed-amu-container');
-            let vetFeedCount = 0;
-            const vetAddOtherSourceBtn = document.getElementById('vetAddOtherSourceBtn');
-            const vetOtherContainer = document.getElementById('vet-other-amu-container');
-            let vetOtherSourceCount = 0;
-
-            function addVetFeedEntry() {
-                vetFeedCount++;
-                 const html = `<div class="p-4 border border-gray-200 rounded-lg bg-white fade-in"><h4 class="font-medium text-gray-800 mb-4">Medicated Feed Record #${vetFeedCount}</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="text-sm text-gray-600">Feed Name/Code</label><input type="text" name="vetFeedName${vetFeedCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div><div><label class="text-sm text-gray-600">Antimicrobial Used</label><input type="text" name="vetFeedAmu${vetFeedCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div><div><label class="text-sm text-gray-600">Dosage (e.g., mg/kg)</label><input type="text" name="vetFeedDosage${vetFeedCount}" class="dosage-input w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><p class="text-red-500 text-xs mt-1 hidden">Warning: Value is above the recommended limit of 0.1.</p></div><div><label class="text-sm text-gray-600">Application Start Date</label><input type="date" name="vetFeedStartDate${vetFeedCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div></div></div>`;
-                vetFeedContainer.insertAdjacentHTML('beforeend', html);
-            }
-
-            function addVetOtherSourceEntry() {
-                vetOtherSourceCount++;
-                const html = `<div class="p-4 border border-gray-200 rounded-lg bg-white fade-in"><h4 class="font-medium text-gray-800 mb-4">Other AMU Record #${vetOtherSourceCount}</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="text-sm text-gray-600">Source Type</label><select name="vetSourceType${vetOtherSourceCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><option>Injection</option><option>Bath Treatment</option><option>Topical</option><option>Other</option></select></div><div><label class="text-sm text-gray-600">Antimicrobial Used</label><select name="vetOtherAmu${vetOtherSourceCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><option value="">Select Antimicrobial...</option><option>Oxytetracycline</option><option>Althrocin</option><option>Ampicillin</option><option>Sparfloxacin</option><option>Enrofloxacin</option><option>Acriflavine</option><option>Formalin</option><option>Potassium Permanganate</option><option>Malachite Green</option><option>Tannic Acid</option><option>Other</option></select></div><div><label class="text-sm text-gray-600">Dosage / Concentration</label><input type="text" name="vetOtherDosage${vetOtherSourceCount}" class="dosage-input w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"><p class="text-red-500 text-xs mt-1 hidden">Warning: Value is above the recommended limit of 0.1.</p></div><div><label class="text-sm text-gray-600">Application Date</label><input type="date" name="vetApplicationDate${vetOtherSourceCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md"></div></div></div>`;
-                vetOtherContainer.insertAdjacentHTML('beforeend', html);
-            }
+            document.getElementById('vetLoginForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                vetAdminBypass();
+            });
             
-            if (vetAddFeedBtn) {
-                addVetFeedEntry();
-                addVetOtherSourceEntry();
-                vetAddFeedBtn.addEventListener('click', addVetFeedEntry);
-                vetAddOtherSourceBtn.addEventListener('click', addVetOtherSourceEntry);
-                vetFeedContainer.addEventListener('input', handleDosageInput);
-                vetOtherContainer.addEventListener('input', handleDosageInput);
-                 vetForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    console.log('Vet Form Submitted.');
-                    successMessage.textContent = 'The visit report has been logged successfully.';
-                    successModal.style.display = 'flex';
-                    vetForm.reset();
-                });
-            }
+            document.getElementById('fileNewVetReportBtn').addEventListener('click', () => {
+                document.getElementById('vetVisitForm').reset();
+                showVetSection('vet-management-section');
+            });
+
+            document.getElementById('backToFarmReportsBtn').addEventListener('click', () => {
+                viewFarmReports(currentFarmId);
+            });
+
+            const vetForm = document.getElementById('vetVisitForm');
+            
+            vetForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const newVetReport = { 
+                    id: Date.now(), 
+                    farmId: currentFarmId, 
+                    visitDate: document.getElementById('vetVisitDate').value, 
+                    reason: document.getElementById('vetReason').value,
+                    notes: document.getElementById('vetNotes').value,
+                    followUp: document.getElementById('vetFollowUp').value
+                };
+                
+                vetReports.push(newVetReport);
+                successMessage.textContent = 'The visit report has been logged successfully.';
+                successModal.style.display = 'flex';
+                vetForm.reset();
+                viewFarmReports(currentFarmId); // Go back to farm reports
+            });
         });
     </script>
 </body>
 </html>
-
 
