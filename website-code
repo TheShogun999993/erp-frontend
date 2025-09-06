@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Collection Form for AMU Estimation at Farm Level</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Simple animation for newly added fields */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        /* Custom styles for radio/checkbox */
+        .form-radio, .form-checkbox {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-6xl">
+        <!-- Header -->
+        <header class="mb-8 text-center">
+            <div class="inline-block bg-blue-500 p-4 rounded-full mb-4 shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-800">AMU Estimation Data Collection (Fisheries)</h1>
+            <p class="text-gray-500 mt-2">A comprehensive form for antimicrobial usage estimation at the farm level.</p>
+        </header>
+
+        <!-- Main Form -->
+        <form id="amuForm" class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg space-y-8">
+            
+            <!-- Section: General Information -->
+            <fieldset class="border-b-2 border-blue-100 pb-6">
+                <legend class="text-xl font-semibold text-gray-700 mb-4">1. General Information</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div>
+                        <label for="sampleId" class="block text-sm font-medium text-gray-600 mb-1">Sample ID*</label>
+                        <input type="text" id="sampleId" name="sampleId" pattern="\d*" title="Please enter numbers only." placeholder="Numbers only" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                    <div>
+                        <label for="farmName" class="block text-sm font-medium text-gray-600 mb-1">Farm Name*</label>
+                        <input type="text" id="farmName" name="farmName" placeholder="Enter farm name" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                    <div>
+                        <label for="shortAddress" class="block text-sm font-medium text-gray-600 mb-1">Short Address (Panchayath)*</label>
+                        <input type="text" id="shortAddress" name="shortAddress" placeholder="Enter short address" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                     <div>
+                        <label for="state" class="block text-sm font-medium text-gray-600 mb-1">State*</label>
+                        <select id="state" name="state" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                            <option value="">Select State</option>
+                            <option>Andhra Pradesh</option>
+                            <option>Uttar Pradesh</option>
+                            <option>West Bengal</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="district" class="block text-sm font-medium text-gray-600 mb-1">District*</label>
+                        <input type="text" id="district" name="district" placeholder="Select District" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                    <div>
+                        <label for="blockTaluk" class="block text-sm font-medium text-gray-600 mb-1">Block/Taluk*</label>
+                        <input type="text" id="blockTaluk" name="blockTaluk" placeholder="Select Block/Taluk" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                     <div>
+                        <label for="village" class="block text-sm font-medium text-gray-600 mb-1">Village*</label>
+                        <input type="text" id="village" name="village" placeholder="Select Village" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                </div>
+            </fieldset>
+
+             <!-- Section: Visit & Interview -->
+            <fieldset class="border-b-2 border-blue-100 pb-6">
+                <legend class="text-xl font-semibold text-gray-700 mb-4">2. Visit & Interview Details</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div>
+                        <label for="visitNo" class="block text-sm font-medium text-gray-600 mb-1">Visit No.</label>
+                        <input type="number" id="visitNo" name="visitNo" placeholder="e.g., 1" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                    <div>
+                        <label for="dateOfVisit" class="block text-sm font-medium text-gray-600 mb-1">Date of Visit</label>
+                        <input type="date" id="dateOfVisit" name="dateOfVisit" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                    <div class="lg:col-span-3">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Period of Study</label>
+                        <div class="flex items-center gap-4">
+                           <input type="date" id="studyStartDate" name="studyStartDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                           <span class="text-gray-600">to</span>
+                           <input type="date" id="studyEndDate" name="studyEndDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="intervieweeName" class="block text-sm font-medium text-gray-600 mb-1">Name of Person for Interview*</label>
+                        <input type="text" id="intervieweeName" name="intervieweeName" placeholder="Enter name" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                     <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Role</label>
+                        <div class="flex items-center space-x-6 mt-2">
+                            <label class="flex items-center"><input type="radio" name="role" value="vet" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Veterinarian / Fisheries Officer</span></label>
+                            <label class="flex items-center"><input type="radio" name="role" value="farmer" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Farmer</span></label>
+                            <label class="flex items-center"><input type="radio" name="role" value="owner" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Farm Owner</span></label>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="contactNo" class="block text-sm font-medium text-gray-600 mb-1">Contact No.</label>
+                        <input type="tel" id="contactNo" name="contactNo" placeholder="Enter phone number" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                     <div>
+                        <label for="email" class="block text-sm font-medium text-gray-600 mb-1">Email ID</label>
+                        <input type="email" id="email" name="email" placeholder="Enter email address" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                    <div>
+                        <label for="latitude" class="block text-sm font-medium text-gray-600 mb-1">Latitude</label>
+                        <input type="text" id="latitude" name="latitude" placeholder="e.g., 28.4595" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                    <div>
+                        <label for="longitude" class="block text-sm font-medium text-gray-600 mb-1">Longitude</label>
+                        <input type="text" id="longitude" name="longitude" placeholder="e.g., 77.0266" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                     <div>
+                        <label for="farmId" class="block text-sm font-medium text-gray-600 mb-1">Farm Number (ID)*</label>
+                        <input type="text" id="farmId" name="farmId" placeholder="Enter farm ID" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                </div>
+            </fieldset>
+
+             <!-- Section: Farm & Fish Details -->
+            <fieldset class="border-b-2 border-blue-100 pb-6">
+                <legend class="text-xl font-semibold text-gray-700 mb-4">3. Farm & Fish Details</legend>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-600">Farm Type*</label>
+                        <div class="space-y-1">
+                            <label class="flex items-center"><input type="radio" name="farmType" value="pond" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Pond-based</span></label>
+                            <label class="flex items-center"><input type="radio" name="farmType" value="cage" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Cage culture</span></label>
+                            <label class="flex items-center"><input type="radio" name="farmType" value="tank" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Tank/RAS</span></label>
+                            <label class="flex items-center"><input type="radio" name="farmType" value="pen" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Pen culture</span></label>
+                            <div class="flex items-center">
+                                <input type="radio" name="farmType" value="other" class="form-radio h-4 w-4 text-blue-600">
+                                <span class="ml-2 mr-2">Other</span>
+                                <input type="text" name="farmTypeOther" class="flex-1 p-2 text-sm bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-600">Water Source*</label>
+                         <div class="space-y-1">
+                            <label class="flex items-center"><input type="radio" name="waterSource" value="river" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">River / Canal</span></label>
+                            <label class="flex items-center"><input type="radio" name="waterSource" value="reservoir" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Reservoir / Lake</span></label>
+                            <label class="flex items-center"><input type="radio" name="waterSource" value="groundwater" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Groundwater</span></label>
+                            <label class="flex items-center"><input type="radio" name="waterSource" value="seawater" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Seawater</span></label>
+                            <label class="flex items-center"><input type="radio" name="waterSource" value="mixed" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Mixed</span></label>
+                        </div>
+                    </div>
+                     <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-600">Culture Type*</label>
+                         <div class="space-y-1">
+                            <label class="flex items-center"><input type="radio" name="cultureType" value="inland" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Inland Freshwater</span></label>
+                            <label class="flex items-center"><input type="radio" name="cultureType" value="brackish" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Brackishwater</span></label>
+                            <label class="flex items-center"><input type="radio" name="cultureType" value="marine" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Marine</span></label>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 lg:col-span-3">
+                        <label for="species" class="block text-sm font-medium text-gray-600 mb-1">Fish / Shrimp / Species Cultured*</label>
+                        <input type="text" id="species" name="species" placeholder="e.g., Rohu, Catla, Pangasius, L. vannamei" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                    <div class="lg:col-span-3">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Stocking Details*</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <input type="text" name="stockingArea" placeholder="Total area (ha/m²/cages)" class="p-3 bg-gray-50 border border-gray-300 rounded-lg" required>
+                            <input type="text" name="stockingDensity" placeholder="Stocking density (no./unit)" class="p-3 bg-gray-50 border border-gray-300 rounded-lg" required>
+                            <div>
+                               <label for="stockingDate" class="block text-xs text-center text-gray-500 mb-1">Date of stocking</label>
+                               <input type="date" id="stockingDate" name="stockingDate" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg" required>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="lg:col-span-3">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Current Stage of Stock</label>
+                         <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+                             <label class="flex items-center"><input type="radio" name="stockStage" value="hatchery" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Hatchery stage</span></label>
+                             <label class="flex items-center"><input type="radio" name="stockStage" value="nursery" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Nursery stage</span></label>
+                             <label class="flex items-center"><input type="radio" name="stockStage" value="growout" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Grow-out</span></label>
+                             <label class="flex items-center"><input type="radio" name="stockStage" value="broodstock" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Broodstock</span></label>
+                         </div>
+                    </div>
+                    <div>
+                        <label for="avgBodyWeight" class="block text-sm font-medium text-gray-600 mb-1">Average Body Weight (g/kg)</label>
+                        <input type="text" id="avgBodyWeight" name="avgBodyWeight" placeholder="e.g., 500 g" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                     <div>
+                        <label for="totalBiomass" class="block text-sm font-medium text-gray-600 mb-1">Total Standing Biomass (kg)</label>
+                        <input type="text" id="totalBiomass" name="totalBiomass" placeholder="e.g., 1200 kg" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Section: Health & Management -->
+            <fieldset class="border-b-2 border-blue-100 pb-6">
+                 <legend class="text-xl font-semibold text-gray-700 mb-4">4. Health & Management</legend>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                     <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-600">Veterinary / Fisheries Officer Consultation</label>
+                         <div class="flex items-center space-x-6 mt-2">
+                            <label class="flex items-center"><input type="radio" name="consultation" value="yes" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Yes</span></label>
+                            <label class="flex items-center"><input type="radio" name="consultation" value="no" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">No</span></label>
+                            <label class="flex items-center"><input type="radio" name="consultation" value="unknown" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Don't Know</span></label>
+                        </div>
+                     </div>
+                     <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-600">Vaccination / Prophylaxis</label>
+                         <div class="flex items-center space-x-6 mt-2">
+                            <label class="flex items-center"><input type="radio" name="vaccination" value="yes" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Yes</span></label>
+                            <label class="flex items-center"><input type="radio" name="vaccination" value="no" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">No</span></label>
+                            <label class="flex items-center"><input type="radio" name="vaccination" value="unknown" class="form-radio h-4 w-4 text-blue-600"> <span class="ml-2">Don't Know</span></label>
+                        </div>
+                     </div>
+                     <div>
+                        <label for="mortalityRate" class="block text-sm font-medium text-gray-600 mb-1">Mortality Rate (%)</label>
+                        <input type="text" id="mortalityRate" name="mortalityRate" placeholder="e.g., 5%" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                     </div>
+                     <div class="lg:col-span-3">
+                         <label class="block text-sm font-medium text-gray-600 mb-2">Fish Stock Numbers</label>
+                         <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                            <input type="number" name="fishStocked" placeholder="No. Stocked Initially*" class="p-3 bg-gray-50 border border-gray-300 rounded-lg" required>
+                            <input type="number" name="fishAlive" placeholder="No. Currently Alive*" class="p-3 bg-gray-50 border border-gray-300 rounded-lg" required>
+                            <input type="number" name="fishDied" placeholder="No. Died (till date)" class="p-3 bg-gray-50 border border-gray-300 rounded-lg">
+                            <input type="number" name="fishHarvested" placeholder="No. Harvested / Sold" class="p-3 bg-gray-50 border border-gray-300 rounded-lg">
+                            <input type="number" name="fishRestocked" placeholder="No. Added / Restocked" class="p-3 bg-gray-50 border border-gray-300 rounded-lg">
+                         </div>
+                     </div>
+                     <div>
+                        <label for="feedConsumption" class="block text-sm font-medium text-gray-600 mb-1">Average Feed Consumption (kg/day)</label>
+                        <input type="text" id="feedConsumption" name="feedConsumption" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                     <div>
+                        <label for="waterExchange" class="block text-sm font-medium text-gray-600 mb-1">Average Water Exchange (litres/day or %)</label>
+                        <input type="text" id="waterExchange" name="waterExchange" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                 </div>
+            </fieldset>
+
+            <!-- Section: Feed AMU -->
+            <fieldset class="border-b-2 border-blue-100 pb-6">
+                <legend class="text-xl font-semibold text-gray-700 mb-4">5. Feed-Based AMU</legend>
+                <div id="feed-amu-container" class="space-y-6">
+                    <!-- Dynamic feed entries will be added here -->
+                </div>
+                <button type="button" id="addFeedBtn" class="mt-4 flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" /></svg>
+                    Add Medicated Feed Record
+                </button>
+            </fieldset>
+
+            <!-- Section: Other AMU Sources -->
+            <fieldset>
+                <legend class="text-xl font-semibold text-gray-700 mb-4">6. Other AMU Sources</legend>
+                <div id="other-amu-container" class="space-y-6">
+                     <!-- Dynamic other source entries will be added here -->
+                </div>
+                 <button type="button" id="addOtherSourceBtn" class="mt-4 flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" /></svg>
+                    Add Other AMU Record
+                </button>
+            </fieldset>
+            
+            <!-- Submission Button -->
+            <div class="flex justify-end pt-6">
+                <button type="submit" class="w-full md:w-auto bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">
+                    Submit Record
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Message Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg p-8 shadow-2xl max-w-sm text-center">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Success!</h3>
+            <div class="mt-2 px-7 py-3">
+                <p class="text-sm text-gray-500">Your AMU data has been logged successfully.</p>
+            </div>
+            <div class="mt-4">
+                <button id="closeModalBtn" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addFeedBtn = document.getElementById('addFeedBtn');
+            const feedContainer = document.getElementById('feed-amu-container');
+            let feedCount = 0;
+
+            const addOtherSourceBtn = document.getElementById('addOtherSourceBtn');
+            const otherContainer = document.getElementById('other-amu-container');
+            let otherSourceCount = 0;
+
+            const form = document.getElementById('amuForm');
+            const successModal = document.getElementById('successModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+
+            // Function to add a new feed entry form
+            function addFeedEntry() {
+                feedCount++;
+                const feedEntryHTML = `
+                    <div class="p-4 border border-gray-200 rounded-lg bg-white fade-in relative">
+                        <h4 class="font-medium text-gray-800 mb-4">Medicated Feed Record #${feedCount}</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="feedName${feedCount}" class="text-sm text-gray-600">Feed Name/Code</label>
+                                <input type="text" id="feedName${feedCount}" name="feedName${feedCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="feedAmu${feedCount}" class="text-sm text-gray-600">Antimicrobial Used</label>
+                                <input type="text" id="feedAmu${feedCount}" name="feedAmu${feedCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="feedDosage${feedCount}" class="text-sm text-gray-600">Dosage (e.g., mg/kg)</label>
+                                <input type="text" id="feedDosage${feedCount}" name="feedDosage${feedCount}" class="dosage-input w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                <p class="text-red-500 text-xs mt-1 hidden">Warning: Value is above the recommended limit of 0.1.</p>
+                            </div>
+                            <div>
+                                <label for="feedStartDate${feedCount}" class="text-sm text-gray-600">Application Start Date</label>
+                                <input type="date" id="feedStartDate${feedCount}" name="feedStartDate${feedCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                feedContainer.insertAdjacentHTML('beforeend', feedEntryHTML);
+            }
+
+            // Function to add a new "other source" entry form
+            function addOtherSourceEntry() {
+                otherSourceCount++;
+                const otherSourceHTML = `
+                    <div class="p-4 border border-gray-200 rounded-lg bg-white fade-in relative">
+                        <h4 class="font-medium text-gray-800 mb-4">Other AMU Record #${otherSourceCount}</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="sourceType${otherSourceCount}" class="text-sm text-gray-600">Source Type</label>
+                                <select id="sourceType${otherSourceCount}" name="sourceType${otherSourceCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                    <option>Injection</option>
+                                    <option>Bath Treatment</option>
+                                    <option>Topical</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="otherAmu${otherSourceCount}" class="text-sm text-gray-600">Antimicrobial Used</label>
+                                <select id="otherAmu${otherSourceCount}" name="otherAmu${otherSourceCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Select Antimicrobial...</option>
+                                    <option>Oxytetracycline</option>
+                                    <option>Althrocin</option>
+                                    <option>Ampicillin</option>
+                                    <option>Sparfloxacin</option>
+                                    <option>Enrofloxacin</option>
+                                    <option>Acriflavine</option>
+                                    <option>Formalin</option>
+                                    <option>Potassium Permanganate</option>
+                                    <option>Malachite Green</option>
+                                    <option>Tannic Acid</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="otherDosage${otherSourceCount}" class="text-sm text-gray-600">Dosage / Concentration</label>
+                                <input type="text" id="otherDosage${otherSourceCount}" name="otherDosage${otherSourceCount}" class="dosage-input w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                <p class="text-red-500 text-xs mt-1 hidden">Warning: Value is above the recommended limit of 0.1.</p>
+                            </div>
+                            <div>
+                                <label for="applicationDate${otherSourceCount}" class="text-sm text-gray-600">Application Date</label>
+                                <input type="date" id="applicationDate${otherSourceCount}" name="applicationDate${otherSourceCount}" class="w-full mt-1 p-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                otherContainer.insertAdjacentHTML('beforeend', otherSourceHTML);
+            }
+
+            // Event Listeners
+            addFeedBtn.addEventListener('click', addFeedEntry);
+            addOtherSourceBtn.addEventListener('click', addOtherSourceEntry);
+
+            // Event delegation for dosage validation
+            function handleDosageInput(event) {
+                if (event.target.classList.contains('dosage-input')) {
+                    const input = event.target;
+                    const warning = input.nextElementSibling;
+                    const value = parseFloat(input.value);
+
+                    if (!isNaN(value) && value > 0.1) {
+                        warning.classList.remove('hidden');
+                    } else {
+                        warning.classList.add('hidden');
+                    }
+                }
+            }
+
+            feedContainer.addEventListener('input', handleDosageInput);
+            otherContainer.addEventListener('input', handleDosageInput);
+            
+            // Add one of each entry by default if the container is empty
+            if(feedContainer.innerHTML.trim() === '') {
+                addFeedEntry();
+            }
+             if(otherContainer.innerHTML.trim() === '') {
+                addOtherSourceEntry();
+            }
+
+            // Form submission logic
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                console.log('Form Submitted. Data:');
+                for (let [key, value] of formData.entries()) {
+                    console.log(`${key}: ${value}`);
+                }
+                successModal.style.display = 'flex';
+            });
+
+            closeModalBtn.addEventListener('click', function() {
+                successModal.style.display = 'none';
+                form.reset();
+                feedContainer.innerHTML = '';
+                otherContainer.innerHTML = '';
+                feedCount = 0;
+                otherSourceCount = 0;
+                addFeedEntry();
+                addOtherSourceEntry();
+            });
+
+        });
+    </script>
+</body>
+</html>
