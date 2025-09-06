@@ -32,6 +32,25 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
         }
+        /* Custom focus ring for better accessibility */
+        .focus-ring:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+        /* Prevent number input spinners */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        input:disabled, select:disabled {
+            background-color: #f3f4f6;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -46,7 +65,7 @@
                       <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
                 </div>
-                <h1 class="text-4xl font-bold text-gray-800">Fishery Datas Collection Portal</h1>
+                <h1 class="text-4xl font-bold text-gray-800">Fishery Data Collection Portal</h1>
                 <p class="text-gray-500 mt-2 text-lg">Please select your role to continue.</p>
             </header>
 
@@ -170,8 +189,194 @@
                     </div>
                 </div>
 
+                <!-- Decision Support Tools Section -->
+                <section id="calculator-tool-section" class="mt-12">
+                    <div class="w-full max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
+                        <div class="text-center">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-blue-800">Aquaculture Drug Calculators</h2>
+                            <p id="header-subtitle" class="mt-2 text-sm sm:text-base text-gray-600">Predicts the optimal withdrawal time (WDT) to ensure fish are residue-safe.</p>
+                        </div>
+
+                        <!-- Tab Navigation -->
+                        <div class="mt-6 mb-8 border-b border-gray-200">
+                            <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                                <button id="tab1-btn" class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 font-semibold text-sm border-blue-600 text-blue-700">
+                                    WDT Predictor
+                                </button>
+                                <button id="tab2-btn" class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 font-semibold text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                                    Residue Rate Calculator
+                                </button>
+                            </nav>
+                        </div>
+
+                        <!-- Tab Content -->
+                        <div id="tab1-content">
+                            <!-- WDT Predictor Form -->
+                            <form id="calcForm" class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <fieldset class="border border-gray-300 rounded-lg p-4 h-full">
+                                            <legend class="text-lg font-semibold text-blue-700 px-2">Drug & Regulatory Data</legend>
+                                            <div class="space-y-4 mt-2">
+                                                <div>
+                                                    <label for="drugSelect" class="block text-sm font-medium text-gray-700">Select Approved Drug</label>
+                                                    <select id="drugSelect" name="drugSelect" class="focus-ring mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                                        <option value="">-- Select a drug --</option>
+                                                        <!-- Options will be populated by JS -->
+                                                    </select>
+                                                      <p class="mt-2 text-xs text-gray-500">This will pre-fill MRL and an *estimated* Half-life where available.</p>
+                                                </div>
+                                                <div>
+                                                    <label for="mrl" class="block text-sm font-medium text-gray-700">Maximum Residue Limit (MRL)</label>
+                                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                                        <input type="number" step="any" id="mrl" name="mrl" class="focus-ring block w-full pr-12 sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="e.g., 100" required>
+                                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                                            <span class="text-gray-500 sm:text-sm">µg/kg</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label for="cmax" class="block text-sm font-medium text-gray-700">Peak Tissue Concentration (C<sub>max</sub>)</label>
+                                                      <div class="mt-1 relative rounded-md shadow-sm">
+                                                        <input type="number" step="any" id="cmax" name="cmax" class="focus-ring block w-full pr-12 sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="e.g., 2500" required>
+                                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                                            <span class="text-gray-500 sm:text-sm">µg/kg</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label for="thalf" class="block text-sm font-medium text-gray-700">Elimination Half-life (t<sub>1/2</sub>)</label>
+                                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                                        <input type="number" step="any" id="thalf" name="thalf" class="focus-ring block w-full pr-12 sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="e.g., 48" required>
+                                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                                            <span class="text-gray-500 sm:text-sm">hours</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="space-y-6">
+                                        <fieldset class="border border-gray-300 rounded-lg p-4">
+                                            <legend class="text-lg font-semibold text-blue-700 px-2">Treatment Plan Details</legend>
+                                            <div class="mt-2">
+                                                 <label for="dosage" class="block text-sm font-medium text-gray-700">Daily Dosage Amount</label>
+                                                 <div class="mt-1 relative rounded-md shadow-sm">
+                                                    <input type="number" step="any" id="dosage" name="dosage" class="focus-ring block w-full pr-24 sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="e.g., 10">
+                                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                                        <span class="text-gray-500 sm:text-sm">mg/kg biomass</span>
+                                                    </div>
+                                                </div>
+                                                <p class="mt-2 text-xs text-gray-500">Enter dosage to generate a monthly plan. Assumes a 7-day treatment course.</p>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset class="border border-gray-300 rounded-lg p-4">
+                                            <legend class="text-lg font-semibold text-blue-700 px-2">Optional Temperature Data</legend>
+                                            <div class="mt-2">
+                                                 <label for="temp" class="block text-sm font-medium text-gray-700">Average Water Temperature</label>
+                                                 <div class="mt-1 relative rounded-md shadow-sm">
+                                                    <input type="number" step="any" id="temp" name="temp" class="focus-ring block w-full pr-12 sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="e.g., 15">
+                                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                                        <span class="text-gray-500 sm:text-sm">°C</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <button type="submit" id="submitButton" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors disabled:bg-blue-400 disabled:cursor-not-allowed">
+                                    <svg id="spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" style="display: none;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    <span id="buttonText">Predict & Generate Plan</span>
+                                </button>
+                            </form>
+                            <div id="loadingText" class="text-center mt-4 text-gray-600" style="display: none;">
+                                <p id="loadingMessage" class="text-sm"></p>
+                            </div>
+                            <div id="results" class="mt-8 text-center bg-gray-100 p-6 rounded-lg border border-gray-200" style="display: none;">
+                                <h2 class="text-base font-medium text-gray-600">Predicted Withdrawal Time</h2>
+                                <p id="resultText" class="text-4xl font-bold mt-2"></p>
+                                <p id="degreeDayText" class="text-gray-500 mt-2"></p>
+                            </div>
+                            <div id="dosagePlan" class="mt-8" style="display: none;">
+                                 <h2 class="text-xl font-bold text-center text-blue-800 mb-4">Treatment & Withdrawal Plan</h2>
+                                 <div class="grid grid-cols-7 gap-2 text-center text-xs font-bold text-gray-600 mb-2 px-2">
+                                     <div>Sun</div> <div>Mon</div> <div>Tue</div> <div>Wed</div> <div>Thu</div> <div>Fri</div> <div>Sat</div>
+                                 </div>
+                                 <div id="planContainer" class="grid grid-cols-7 gap-2"></div>
+                            </div>
+                        </div>
+                        
+                        <div id="tab2-content" style="display: none;">
+                             <!-- Residue Rate Calculator -->
+                            <div class="p-4 bg-gray-100 rounded-lg text-center mb-6">
+                                <p class="text-sm font-medium text-gray-700">Formula:</p>
+                                <p class="text-lg font-mono text-gray-900">R(t) = [R₀ * e<sup>-(K₀ + L * G(t))</sup>] + A₀</p>
+                                <p class="mt-2 text-xs text-gray-500">where L = 0.02 and G(t) = (ln(W₂) - ln(W₁) * t)/100</p>
+                            </div>
+                            <form id="calculatorForm" class="space-y-6">
+                                <div class="rounded-md -space-y-px">
+                                    <div>
+                                        <label for="ro" class="block text-sm font-medium text-gray-700">Conc. of anti microbial dosage administered (R₀) (mg/kg)</label>
+                                        <input id="ro" name="ro" type="number" step="any" required class="mt-1 focus-ring block w-full sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="e.g., 1.0">
+                                    </div>
+                                     <div class="pt-4">
+                                        <label for="ao" class="block text-sm font-medium text-gray-700">Previous Session Residue (A₀) (mg/kg)</label>
+                                        <input id="ao" name="ao" type="number" step="any" required class="mt-1 focus-ring block w-full sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="e.g., 0.1">
+                                    </div>
+                                     <div class="pt-4">
+                                        <label for="antimicrobial" class="block text-sm font-medium text-gray-700">Antimicrobial</label>
+                                        <select id="antimicrobial" name="antimicrobial" required class="mt-1 focus-ring block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                            <!-- Options will be populated by JS -->
+                                        </select>
+                                    </div>
+                                    <div class="pt-4">
+                                        <label for="ko" class="block text-sm font-medium text-gray-700">Decay Constant (K₀) (day⁻¹)</label>
+                                        <input id="ko" name="ko" type="number" step="any" required class="mt-1 focus-ring block w-full sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="Enter a value">
+                                        <p id="ko-hint" class="mt-1 text-xs text-gray-500"></p>
+                                    </div>
+                                    <div class="pt-4">
+                                        <label for="w1" class="block text-sm font-medium text-gray-700">Input W₁ for G(t) (kg)</label>
+                                        <input id="w1" name="w1" type="number" step="any" required class="mt-1 focus-ring block w-full sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="e.g., 1.2">
+                                    </div>
+                                     <div class="pt-4">
+                                        <label for="w2" class="block text-sm font-medium text-gray-700">Input W₂ for G(t) (kg)</label>
+                                        <input id="w2" name="w2" type="number" step="any" required class="mt-1 focus-ring block w-full sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="e.g., 3.6">
+                                    </div>
+                                     <div class="pt-4">
+                                        <label for="t" class="block text-sm font-medium text-gray-700">Time (t) in days</label>
+                                        <input id="t" name="t" type="number" step="any" required class="mt-1 focus-ring block w-full sm:text-sm border-gray-300 rounded-md py-2 px-3" placeholder="e.g., 10">
+                                    </div>
+                                </div>
+                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                                    Calculate Concentration of Residue
+                                </button>
+                            </form>
+                             <div class="mt-4">
+                                 <button type="button" id="resetTab2" class="w-full flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm text-base font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors" style="display: none;">
+                                     Unlock & Reset Fields
+                                 </button>
+                            </div>
+                            <div id="result-container" class="hidden pt-6">
+                                <h2 class="text-xl font-semibold text-gray-800 text-center">Result</h2>
+                                <div id="result-box" class="mt-2 p-6 bg-green-50 border border-green-200 rounded-lg text-center">
+                                     <p id="result-label" class="text-sm text-green-700">The Concentration of residue R(t) is:</p>
+                                     <p id="result" class="text-3xl font-bold text-green-900"></p>
+                                </div>
+                                <div id="mrl-warning" class="hidden mt-4 p-4 bg-red-50 border border-red-300 rounded-lg text-center text-red-800">
+                                    <p class="font-bold">MRL Warning!</p>
+                                    <p id="mrl-message"></p>
+                                </div>
+                                <div id="error-message" class="mt-2 p-4 bg-red-50 border border-red-200 rounded-lg text-center text-red-700 hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
                 <!-- Report Display Area -->
-                <div id="dashboard-report-container" class="mt-8 min-h-[40vh]"> <!-- This is the empty space -->
+                <div id="dashboard-report-container" class="mt-8 min-h-[40vh]">
                      <div id="dashboard-report-area" class="hidden">
                         <header class="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
                             <div>
@@ -204,7 +409,7 @@
                             <h1 class="text-3xl font-bold text-gray-800">AMU & MRL Management</h1>
                             <p class="text-gray-500 mt-2">A comprehensive form for antimicrobial usage estimation at the farm level.</p>
                         </div>
-                        <button onclick="viewCultureReports(currentCultureType)" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition flex items-center gap-2">
+                        <button onclick="showFarmerSection('farmer-dashboard-section'); viewCultureReports(currentCultureType);" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
                             Back to Reports
                         </button>
@@ -673,7 +878,8 @@
                     cultureReportList.insertAdjacentHTML('beforeend', reportCard);
                 });
             }
-            showFarmerSection('farmer-dashboard-section');
+            // This was navigating away from the dashboard, removing it. The logic now shows the reports within the dashboard.
+            // showFarmerSection('farmer-culture-reports-section');
         }
 
         // --- View Farmer Report ---
@@ -683,7 +889,10 @@
             const report = farmerReports.find(r => r.id === reportId);
             if (!report) return;
 
-            document.getElementById('backToCultureReportsBtn').onclick = () => viewCultureReports(report.cultureType);
+            document.getElementById('backToCultureReportsBtn').onclick = () => {
+                showFarmerSection('farmer-dashboard-section');
+                viewCultureReports(report.cultureType);
+            };
 
             let detailsHtml = `
                 <div class="border-b pb-4">
@@ -1091,6 +1300,164 @@
                 e.preventDefault();
                 govAdminBypass();
             });
+
+            // --- CALCULATOR LOGIC ---
+            const masterDrugData = {
+                'Amoxicillin': { mrl_ug: 50, tHalf_hr: 18 },'Ciprofloxacin': { mrl_ug: 100, tHalf_hr: 30 },'Enrofloxacin': { mrl_mg: 0.1, ko_min: 0.08, ko_max: 0.12 },'Erythromycin': { mrl_ug: 200, tHalf_hr: 60 },'Florfenicol': { mrl_ug: 1000, tHalf_hr: 125 },'Flumequine': { mrl_ug: 500, tHalf_hr: 85 },'Formalin': { mrl_mg: 0, ko_na: true },'Malachite Green': { mrl_mg: 0.002, ko_min: 0.05, ko_max: 0.08 },'Oxolinic Acid': { mrl_ug: 30, tHalf_hr: 200 },'Oxytetracycline': { mrl_ug: 100, tHalf_hr: 90, mrl_mg: 0.2, ko_min: 0.15, ko_max: 0.25 },'Potassium Permanganate': { mrl_mg: 0, ko_na: true },'Sarafloxacin': { mrl_ug: 30, tHalf_hr: 35 },'Sulfabromomethazine': { mrl_mg: 0.1, ko_approx: 0.06 },'Sulfadimethoxine': { mrl_mg: 0.1, ko_min: 0.05, ko_max: 0.10 },'Sulfaethoxypyridazine': { mrl_mg: 0.1, ko_approx: 0.07 },'Sulphadiazine': { mrl_ug: 100, tHalf_hr: 36, mrl_mg: 0.1, ko_min: 0.05, ko_max: 0.10 },'Tetracycline': { mrl_mg: 0.1, ko_min: 0.12, ko_max: 0.20 },'Trimethoprim': { mrl_ug: 50, tHalf_hr: 30, mrl_mg: 0.05, ko_min: 0.10, ko_max: 0.18 },
+            };
+            const drugSelect1 = document.getElementById('drugSelect');
+            const drugSelect2 = document.getElementById('antimicrobial');
+            const drugNames = Object.keys(masterDrugData).sort();
+            drugNames.forEach(name => {
+                drugSelect1.add(new Option(name, name));
+                drugSelect2.add(new Option(name, name));
+            });
+            (function() {
+                const tab1Btn = document.getElementById('tab1-btn'), tab2Btn = document.getElementById('tab2-btn');
+                const tab1Content = document.getElementById('tab1-content'), tab2Content = document.getElementById('tab2-content');
+                const subtitle = document.getElementById('header-subtitle');
+                const switchTab = (activeBtn, inactiveBtn, activeContent, inactiveContent, text) => {
+                    activeContent.style.display = 'block'; inactiveContent.style.display = 'none';
+                    subtitle.textContent = text;
+                    activeBtn.classList.add('border-blue-600', 'text-blue-700'); activeBtn.classList.remove('border-transparent', 'text-gray-500');
+                    inactiveBtn.classList.add('border-transparent', 'text-gray-500'); inactiveBtn.classList.remove('border-blue-600', 'text-blue-700');
+                };
+                tab1Btn.addEventListener('click', () => switchTab(tab1Btn, tab2Btn, tab1Content, tab2Content, 'Predicts the optimal withdrawal time (WDT) to ensure fish are residue-safe.'));
+                tab2Btn.addEventListener('click', () => switchTab(tab2Btn, tab1Btn, tab2Content, tab1Content, 'Calculate the final residue rate based on dosage and environmental factors.'));
+            })();
+            (function() {
+                document.getElementById('drugSelect').addEventListener('change', function(e) {
+                    const data = masterDrugData[e.target.value] || {};
+                    document.getElementById('mrl').value = data.mrl_ug || '';
+                    document.getElementById('thalf').value = data.tHalf_hr || '';
+                });
+                const autoPopulateTab2 = (wdtDays, dosage, tHalfHours, selectedDrugName) => {
+                    const antimicrobialSelectTab2 = document.getElementById('antimicrobial'), roInputTab2 = document.getElementById('ro'), aoInputTab2 = document.getElementById('ao'), koInputTab2 = document.getElementById('ko'), tInputTab2 = document.getElementById('t'), resetBtnTab2 = document.getElementById('resetTab2');
+                    antimicrobialSelectTab2.value = selectedDrugName;
+                    antimicrobialSelectTab2.dispatchEvent(new Event('change'));
+                    roInputTab2.value = dosage || '';
+                    aoInputTab2.value = 0;
+                    if (tHalfHours > 0) koInputTab2.value = ((Math.log(2) / tHalfHours) * 24).toFixed(4);
+                    else if (!masterDrugData[selectedDrugName]?.ko_na) koInputTab2.value = '';
+                    tInputTab2.value = wdtDays.toFixed(1);
+                    antimicrobialSelectTab2.disabled = true; roInputTab2.disabled = true; aoInputTab2.disabled = false; koInputTab2.disabled = true; tInputTab2.disabled = true;
+                    resetBtnTab2.style.display = 'flex';
+                };
+                document.getElementById('calcForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const submitButton = document.getElementById('submitButton'), buttonText = document.getElementById('buttonText'), spinner = document.getElementById('spinner');
+                    const loadingTextDiv = document.getElementById('loadingText'), loadingMessage = document.getElementById('loadingMessage');
+                    const resultsDiv = document.getElementById('results'), dosagePlanDiv = document.getElementById('dosagePlan');
+                    submitButton.disabled = true; buttonText.style.display = 'none'; spinner.style.display = 'block';
+                    loadingTextDiv.style.display = 'block'; resultsDiv.style.display = 'none'; dosagePlanDiv.style.display = 'none';
+                    const loadingMessages = ["Analyzing pharmacokinetic data...", "Calibrating elimination model...", "Simulating residue depletion curves...", "Finalizing withdrawal period..."];
+                    let messageIndex = 0; loadingMessage.textContent = loadingMessages[messageIndex];
+                    const messageInterval = setInterval(() => { messageIndex++; if (messageIndex < loadingMessages.length) loadingMessage.textContent = loadingMessages[messageIndex]; }, 600);
+                    setTimeout(() => {
+                        clearInterval(messageInterval); loadingTextDiv.style.display = 'none';
+                        const mrl = parseFloat(document.getElementById('mrl').value), cmax = parseFloat(document.getElementById('cmax').value);
+                        const tHalfHours = parseFloat(document.getElementById('thalf').value), temp = parseFloat(document.getElementById('temp').value);
+                        const dosage = parseFloat(document.getElementById('dosage').value), resultText = document.getElementById('resultText');
+                        const degreeDayText = document.getElementById('degreeDayText'), selectedDrugName = document.getElementById('drugSelect').value;
+                        resultsDiv.style.display = 'block';
+                        if (isNaN(mrl) || isNaN(cmax) || isNaN(tHalfHours) || mrl <= 0 || cmax <= 0 || tHalfHours <= 0) {
+                            resultText.textContent = "Invalid Input"; resultText.className = 'text-4xl font-bold mt-2 text-red-600';
+                            degreeDayText.textContent = "Please enter valid, positive numbers for all required fields.";
+                        } else if (cmax <= mrl) {
+                            resultText.textContent = "0 Days"; resultText.className = 'text-4xl font-bold mt-2 text-green-600';
+                            degreeDayText.textContent = "Peak concentration is already below the MRL.";
+                            generatePlan(0, dosage); if (dosage && selectedDrugName) autoPopulateTab2(0, dosage, tHalfHours, selectedDrugName);
+                        } else {
+                            const k = Math.log(2) / tHalfHours, wdtHours = Math.log(cmax / mrl) / k, wdtDays = wdtHours / 24;
+                            resultText.textContent = `${wdtDays.toFixed(1)} Days`; resultText.className = 'text-4xl font-bold mt-2 text-blue-600';
+                            if (!isNaN(temp) && temp > 0) degreeDayText.textContent = `Equal to ${(wdtDays * temp).toFixed(0)} degree-days at ${temp}°C.`;
+                            else degreeDayText.textContent = 'Enter a water temperature to calculate degree-days.';
+                            generatePlan(wdtDays, dosage); if (dosage && selectedDrugName) autoPopulateTab2(wdtDays, dosage, tHalfHours, selectedDrugName);
+                        }
+                        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+                        submitButton.disabled = false; buttonText.style.display = 'inline'; spinner.style.display = 'none';
+                    }, 3000);
+                });
+                function generatePlan(wdtDays, dosage) {
+                    const dosagePlanDiv = document.getElementById('dosagePlan'), planContainer = document.getElementById('planContainer');
+                    if (isNaN(dosage) || dosage <= 0) { dosagePlanDiv.style.display = 'none'; return; }
+                    dosagePlanDiv.style.display = 'block'; planContainer.innerHTML = '';
+                    const today = new Date(), treatmentDuration = 7, withdrawalEndDay = treatmentDuration + Math.ceil(wdtDays);
+                    const planDuration = Math.max(30, withdrawalEndDay + 5), startDayOfWeek = today.getDay();
+                    for (let i = 0; i < startDayOfWeek; i++) planContainer.innerHTML += `<div class="border rounded-lg"></div>`;
+                    for (let i = 0; i < planDuration; i++) {
+                        const dayEl = document.createElement('div');
+                        dayEl.className = 'p-2 rounded-lg border text-center aspect-square flex flex-col justify-center items-center cursor-pointer';
+                        const currentDate = new Date(); currentDate.setDate(today.getDate() + i);
+                        let statusColor, shortStatus;
+                        if (i < treatmentDuration) { statusColor = 'bg-blue-100 border-blue-300 text-blue-800'; shortStatus = 'Treat'; }
+                        else if (i < withdrawalEndDay) { statusColor = 'bg-orange-100 border-orange-300 text-orange-800'; shortStatus = 'WDT'; }
+                        else { statusColor = 'bg-green-100 border-green-300 text-green-800'; shortStatus = 'Safe'; }
+                        dayEl.classList.add(...statusColor.split(' '));
+                        dayEl.innerHTML = `<div class="font-bold text-lg">${currentDate.getDate()}</div><div class="text-xs font-medium">${shortStatus}</div>`;
+                        planContainer.appendChild(dayEl);
+                    }
+                }
+            })();
+            (function() {
+                const form = document.getElementById('calculatorForm'), resultContainer = document.getElementById('result-container');
+                const resultEl = document.getElementById('result'), errorEl = document.getElementById('error-message');
+                const mrlWarningEl = document.getElementById('mrl-warning'), mrlMessageEl = document.getElementById('mrl-message');
+                const resultBox = document.getElementById('result-box'), resultLabel = document.getElementById('result-label');
+                const antimicrobialSelect = document.getElementById('antimicrobial'), koInput = document.getElementById('ko'), koHint = document.getElementById('ko-hint');
+                function updateKoField() {
+                    const selectedDrug = antimicrobialSelect.value, data = masterDrugData[selectedDrug] || {}, isLocked = koInput.disabled;
+                    koInput.disabled = isLocked;
+                    if (data.ko_na === true) {
+                        koInput.value = 0; if (!isLocked) koInput.disabled = true;
+                        koHint.textContent = "Decay constant is not applicable for this selection.";
+                    } else {
+                        if (isLocked) koInput.disabled = false;
+                        if (data.ko_min && data.ko_max) {
+                            const avg = (data.ko_min + data.ko_max) / 2;
+                            if (!isLocked) koInput.value = avg.toFixed(3);
+                            koHint.textContent = `Recommended range: ${data.ko_min} to ${data.ko_max} day⁻¹. Average is suggested.`;
+                        } else if (data.ko_approx) {
+                            if (!isLocked) koInput.value = data.ko_approx;
+                            koHint.textContent = `Approximate value: ~${data.ko_approx} day⁻¹ is suggested.`;
+                        } else {
+                            if (!isLocked) koInput.value = '';
+                            koHint.textContent = 'Decay constant data not available. Please enter a value.';
+                        }
+                        if (isLocked) koInput.disabled = true;
+                    }
+                }
+                antimicrobialSelect.addEventListener('change', updateKoField);
+                document.addEventListener('DOMContentLoaded', () => updateKoField());
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    resultContainer.classList.add('hidden'); mrlWarningEl.classList.add('hidden'); errorEl.classList.add('hidden');
+                    resultBox.className = 'mt-2 p-6 bg-green-50 border border-green-200 rounded-lg text-center';
+                    resultLabel.className = 'text-sm text-green-700'; resultEl.className = 'text-3xl font-bold text-green-900';
+                    const Ro = parseFloat(document.getElementById('ro').value), Ao = parseFloat(document.getElementById('ao').value);
+                    const Ko = parseFloat(koInput.value), W1 = parseFloat(document.getElementById('w1').value);
+                    const W2 = parseFloat(document.getElementById('w2').value), t = parseFloat(document.getElementById('t').value);
+                    const selectedDrugName = antimicrobialSelect.value, drugInfo = masterDrugData[selectedDrugName] || {}, mrl_mg = drugInfo.mrl_mg;
+                    if ([Ro, Ao, Ko, W1, W2, t].some(isNaN)) { showError("Please ensure all fields are filled with valid numbers."); return; }
+                    if (W1 <= 0 || W2 <= 0) { showError("Inputs W₁ and W₂ must be greater than zero for the natural logarithm."); return; }
+                    const L = 0.02, Gt = (Math.log(W2) - Math.log(W1) * t) / 100, exponent = -(Ko + L * Gt), Rt = (Ro * Math.exp(exponent)) + Ao;
+                    resultEl.textContent = `${Rt.toFixed(6)} mg/kg`; resultContainer.classList.remove('hidden');
+                    if (mrl_mg !== undefined && Rt > mrl_mg) {
+                        mrlMessageEl.textContent = `The calculated value exceeds the MRL of ${mrl_mg} mg/kg for ${selectedDrugName}.`;
+                        mrlWarningEl.classList.remove('hidden'); resultBox.className = 'mt-2 p-6 bg-red-50 border border-red-200 rounded-lg text-center';
+                        resultLabel.className = 'text-sm text-red-700'; resultEl.className = 'text-3xl font-bold text-red-900';
+                    }
+                });
+                function showError(message) { errorEl.textContent = message; errorEl.classList.remove('hidden'); resultContainer.classList.remove('hidden'); }
+                document.getElementById('resetTab2').addEventListener('click', () => {
+                    const inputs = [antimicrobialSelect, koInput, ...form.querySelectorAll('input')];
+                    inputs.forEach(el => { el.disabled = false; if (el.type !== 'select-one') el.value = ''; });
+                    antimicrobialSelect.selectedIndex = 0; updateKoField();
+                    resultContainer.classList.add('hidden'); mrlWarningEl.classList.add('hidden'); errorEl.classList.add('hidden');
+                    document.getElementById('resetTab2').style.display = 'none';
+                });
+            })();
+
         });
     </script>
 </body>
