@@ -51,24 +51,35 @@
             </header>
 
             <!-- Portal Selection -->
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8 lg:gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto justify-items-center">
                 <!-- Farmer Portal Card -->
                 <a href="#" onclick="showSection('farmer-portal-page')" class="portal-card bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm text-left">
                     <div class="bg-yellow-100 text-yellow-500 rounded-full h-16 w-16 flex items-center justify-center mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
                     </div>
                     <h2 class="text-2xl font-bold text-gray-800">Farmer Portal</h2>
-                    <p class="text-gray-600 mt-2 mb-6">Access the comprehensive form to manage farm details, stocking, health, and AMU records.</p>
-                    <span class="font-semibold text-blue-600 hover:text-blue-800 transition">Go to Farmer Portal &rarr;</span>
+                    <p class="text-gray-600 mt-2 mb-6">Manage farm details, stocking, health, and AMU records.</p>
+                    <span class="font-semibold text-blue-600 hover:text-blue-800 transition">Go to Farmer Portal →</span>
                 </a>
                 <!-- Vet Portal Card -->
                 <a href="#" onclick="showSection('vet-portal-page')" class="portal-card bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm text-left">
                     <div class="bg-blue-100 text-blue-500 rounded-full h-16 w-16 flex items-center justify-center mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4z" clip-rule="evenodd" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4z" clip-rule="evenodd"></path></svg>
                     </div>
                     <h2 class="text-2xl font-bold text-gray-800">Veterinarian Portal</h2>
-                    <p class="text-gray-600 mt-2 mb-6">Fill out visitation reports, record on-site observations, and log prescribed treatments.</p>
-                    <span class="font-semibold text-blue-600 hover:text-blue-800 transition">Go to Vet Portal &rarr;</span>
+                    <p class="text-gray-600 mt-2 mb-6">File visitation reports, observations, and prescriptions.</p>
+                    <span class="font-semibold text-blue-600 hover:text-blue-800 transition">Go to Vet Portal →</span>
+                </a>
+                <!-- Government Portal Card -->
+                <a href="#" onclick="showSection('government-portal-page')" class="portal-card bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm text-left md:col-span-2">
+                    <div class="bg-gray-100 text-gray-500 rounded-full h-16 w-16 flex items-center justify-center mb-6">
+                       <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">Government Portal</h2>
+                    <p class="text-gray-600 mt-2 mb-6">View aggregated data and reports for regulatory oversight.</p>
+                    <span class="font-semibold text-blue-600 hover:text-blue-800 transition">Go to Government Portal →</span>
                 </a>
             </div>
         </div>
@@ -126,60 +137,60 @@
                  <button onclick="showSection('main-portal-page')" title="Back to Main Portal" class="absolute top-0 left-0 text-gray-400 hover:text-gray-600 transition p-2 rounded-full hover:bg-gray-100 z-10">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 </button>
-                <header class="text-center mb-12">
+                <header class="text-center mb-8">
                      <h1 class="text-3xl font-bold text-gray-800">Farmer Dashboard</h1>
                      <p class="text-gray-500 mt-2">Please select a culture type to view or manage reports.</p>
                 </header>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Culture Type Selectors -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-8">
                     <!-- Freshwater Card -->
-                    <div onclick="viewCultureReports('freshwater')" class="culture-card bg-white p-6 rounded-2xl shadow-lg cursor-pointer flex flex-col items-center text-center">
-                        <div class="bg-blue-100 text-blue-600 p-4 rounded-full mb-4">
-                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12c-3 4-6 4-6 4s-3-1-6-4c-3-4-2-8 0-10 2-2 6-2 8 0s3 6 0 10z"></path><path d="M16 12s-3-1-6-4c-3-4-2-8 0-10 2-2 6-2 8 0s3 6 0 10z"></path><path d="M11.5 14.5c-3 4-6 4-6 4s-3-1-6-4c-3-4-2-8 0-10"></path><path d="M11.5 14.5s-3-1-6-4"></path></svg>
+                    <div onclick="viewCultureReports('freshwater')" class="culture-card bg-white p-4 rounded-xl shadow-md cursor-pointer flex flex-col items-center justify-center text-center w-56 h-56">
+                        <div class="bg-blue-100 text-blue-600 p-3 rounded-full mb-3">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12c-3 4-6 4-6 4s-3-1-6-4c-3-4-2-8 0-10 2-2 6-2 8 0s3 6 0 10z"></path><path d="M16 12s-3-1-6-4c-3-4-2-8 0-10 2-2 6-2 8 0s3 6 0 10z"></path><path d="M11.5 14.5c-3 4-6 4-6 4s-3-1-6-4c-3-4-2-8 0-10"></path><path d="M11.5 14.5s-3-1-6-4"></path></svg>
                         </div>
-                        <h2 class="text-xl font-bold text-gray-800">Freshwater Pond Culture</h2>
-                        <p class="text-sm text-gray-600 mt-2 flex-grow">You raise fish in freshwater ponds, tanks, or cages in lakes/reservoirs.</p>
-                        <p class="text-xs text-gray-400 mt-4">e.g., Rohu, Catla, Mrigal, Pangasius, Tilapia.</p>
+                        <h2 class="text-lg font-semibold text-gray-800">Freshwater Pond Culture</h2>
+                        <p class="text-xs text-gray-500 mt-1 px-2">e.g., Rohu, Catla, Mrigal, Pangasius, Tilapia.</p>
                     </div>
                     <!-- Brackishwater Card -->
-                    <div onclick="viewCultureReports('brackishwater')" class="culture-card bg-white p-6 rounded-2xl shadow-lg cursor-pointer flex flex-col items-center text-center">
-                         <div class="bg-green-100 text-green-600 p-4 rounded-full mb-4">
-                             <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 17C13.3137 17 16 14.3137 16 11C16 7.68629 13.3137 5 10 5C6.68629 5 4 7.68629 4 11C4 14.3137 6.68629 17 10 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 19L14.5 14.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div onclick="viewCultureReports('brackishwater')" class="culture-card bg-white p-4 rounded-xl shadow-md cursor-pointer flex flex-col items-center justify-center text-center w-56 h-56">
+                         <div class="bg-green-100 text-green-600 p-3 rounded-full mb-3">
+                             <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 17C13.3137 17 16 14.3137 16 11C16 7.68629 13.3137 5 10 5C6.68629 5 4 7.68629 4 11C4 14.3137 6.68629 17 10 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19 19L14.5 14.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 11H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                          </div>
-                        <h2 class="text-xl font-bold text-gray-800">Brackishwater Shrimp Farming</h2>
-                        <p class="text-sm text-gray-600 mt-2 flex-grow">You farm shrimp in coastal ponds where salt and fresh water mix.</p>
-                        <p class="text-xs text-gray-400 mt-4">e.g., Vannamei Shrimp, Tiger Prawn.</p>
+                        <h2 class="text-lg font-semibold text-gray-800">Brackishwater Shrimp Farming</h2>
+                        <p class="text-xs text-gray-500 mt-1 px-2">e.g., Vannamei Shrimp, Tiger Prawn.</p>
                     </div>
                     <!-- Mariculture Card -->
-                    <div onclick="viewCultureReports('mariculture')" class="culture-card bg-white p-6 rounded-2xl shadow-lg cursor-pointer flex flex-col items-center text-center">
-                         <div class="bg-yellow-100 text-yellow-600 p-4 rounded-full mb-4">
-                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"></path><path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"></path></svg>
+                    <div onclick="viewCultureReports('mariculture')" class="culture-card bg-white p-4 rounded-xl shadow-md cursor-pointer flex flex-col items-center justify-center text-center w-56 h-56">
+                         <div class="bg-yellow-100 text-yellow-600 p-3 rounded-full mb-3">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"></path><path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"></path></svg>
                          </div>
-                        <h2 class="text-xl font-bold text-gray-800">Other Coastal Culture (Mariculture)</h2>
-                        <p class="text-sm text-gray-600 mt-2 flex-grow">You farm in the sea, growing seaweed, mussels, oysters, or fish in cages.</p>
-                         <p class="text-xs text-gray-400 mt-4">e.g., Seaweed, Mussels, Oysters.</p>
+                        <h2 class="text-lg font-semibold text-gray-800">Other Coastal Culture</h2>
+                        <p class="text-xs text-gray-500 mt-1 px-2">e.g., Seaweed, Mussels, Oysters.</p>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Farmer Culture-Specific Reports Section -->
-        <div id="farmer-culture-reports-section" class="hidden min-h-screen p-4 sm:p-6 lg:p-8">
-            <div class="container mx-auto max-w-6xl">
-                 <header class="flex flex-col md:flex-row justify-between md:items-center mb-8 gap-4">
-                    <div>
-                         <h1 id="culture-report-title" class="text-3xl font-bold text-gray-800"></h1>
-                         <p class="text-gray-500 mt-2">View existing reports or create a new one for this culture type.</p>
+                <!-- Report Display Area -->
+                <div id="dashboard-report-container" class="mt-8 min-h-[40vh]"> <!-- This is the empty space -->
+                     <div id="dashboard-report-area" class="hidden">
+                        <header class="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
+                            <div>
+                                 <h2 id="culture-report-title-dashboard" class="text-2xl font-bold text-gray-800"></h2>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <button id="createNewCultureReportBtnDashboard" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                    Create New Report
+                                </button>
+                            </div>
+                        </header>
+                        <div id="culture-report-list-dashboard" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Report cards will be injected here -->
+                        </div>
                     </div>
-                    <div class="flex items-center gap-4">
-                        <button onclick="showFarmerSection('farmer-dashboard-section')" class="text-sm font-medium text-gray-600 hover:text-gray-800 transition"> &larr; Back to Dashboard</button>
-                        <button id="createNewCultureReportBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
-                            Create New Report
-                        </button>
-                    </div>
-                </header>
-                <div id="culture-report-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Report cards for a specific culture will be injected here by JS -->
+                     <div id="dashboard-placeholder" class="flex items-center justify-center h-full text-center py-16 text-gray-400">
+                         <p>Select a culture type above to view reports.</p>
+                     </div>
                 </div>
             </div>
         </div>
@@ -443,7 +454,70 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <!-- Government Portal Page -->
+    <div id="government-portal-page" class="hidden">
+        
+        <!-- Government Login Section -->
+        <div id="government-login-section" class="min-h-screen flex items-center justify-center p-4">
+            <div class="max-w-xl w-full relative">
+                 <button onclick="showSection('main-portal-page')" title="Go back" class="absolute top-4 left-4 text-gray-400 hover:text-gray-600 transition p-2 rounded-full hover:bg-gray-100 z-10">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <form id="govLoginForm" class="bg-white p-8 pt-16 rounded-2xl shadow-lg space-y-6">
+                    <header class="text-center mb-4">
+                        <h1 class="text-3xl font-bold text-gray-800">Government Official Login</h1>
+                        <p class="text-gray-500 mt-2">Please enter your credentials to continue.</p>
+                    </header>
+                    <div>
+                        <label for="govId" class="block text-sm font-medium text-gray-600 mb-1">Official ID*</label>
+                        <input type="text" id="govId" name="govId" placeholder="Enter your official ID" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                     <div>
+                        <label for="govPassword" class="block text-sm font-medium text-gray-600 mb-1">Password*</label>
+                        <input type="password" id="govPassword" name="govPassword" placeholder="Enter your password" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition" required>
+                    </div>
+                    <div class="flex items-center justify-end pt-4">
+                         <div>
+                            <button type="button" onclick="govAdminBypass()" class="text-xs text-gray-500 hover:text-gray-700 mr-4">Dev Bypass</button>
+                            <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">
+                                Login
+                            </button>
+                         </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Government Dashboard Section -->
+        <div id="government-dashboard-section" class="hidden min-h-screen p-4 sm:p-6 lg:p-8">
+            <div class="container mx-auto max-w-7xl relative">
+                <button onclick="showSection('main-portal-page')" title="Back to Main Portal" class="absolute top-0 left-0 text-gray-400 hover:text-gray-600 transition p-2 rounded-full hover:bg-gray-100 z-10">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                </button>
+                <header class="text-center mb-12">
+                     <h1 class="text-3xl font-bold text-gray-800">Government Dashboard</h1>
+                     <p class="text-gray-500 mt-2">Aggregated data from all registered farms and veterinarians.</p>
+                </header>
+
+                <!-- Farmer Data Section -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Farmer Submitted Data</h2>
+                    <div id="all-farmer-reports-container" class="bg-white p-6 rounded-2xl shadow-lg overflow-x-auto">
+                        <!-- Farmer reports table will be injected here -->
+                    </div>
+                </section>
+
+                <!-- Vet Data Section -->
+                <section>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Veterinarian Reports</h2>
+                    <div id="all-vet-reports-container" class="bg-white p-6 rounded-2xl shadow-lg overflow-x-auto">
+                        <!-- Vet reports table will be injected here -->
+                    </div>
+                </section>
+            </div>
+        </div>
     </div>
     
     <!-- Shared Success Modal -->
@@ -535,8 +609,15 @@
             window.scrollTo(0, 0);
         }
 
+        function showGovSection(govSectionId) {
+            document.querySelectorAll('#government-portal-page > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(govSectionId).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
         function adminBypass() {
             showFarmerSection('farmer-dashboard-section');
+            resetFarmerDashboardView();
         }
 
         function vetAdminBypass() {
@@ -544,24 +625,41 @@
             showVetSection('vet-dashboard-section');
         }
 
+        function govAdminBypass() {
+            renderGovDashboard();
+            showGovSection('government-dashboard-section');
+        }
+
         // --- Farmer Dashboard ---
+        function resetFarmerDashboardView() {
+            document.getElementById('dashboard-placeholder').classList.remove('hidden');
+            document.getElementById('dashboard-report-area').classList.add('hidden');
+        }
+
         function viewCultureReports(cultureType) {
             currentCultureType = cultureType;
+            
+            // Show report area, hide placeholder
+            document.getElementById('dashboard-placeholder').classList.add('hidden');
+            const reportArea = document.getElementById('dashboard-report-area');
+            reportArea.classList.remove('hidden');
+            reportArea.classList.add('fade-in');
+
             const titleMap = {
                 'freshwater': 'Freshwater Pond Culture Reports',
                 'brackishwater': 'Brackishwater Shrimp Farming Reports',
                 'mariculture': 'Other Coastal Culture Reports'
             };
-            document.getElementById('culture-report-title').textContent = titleMap[cultureType];
+            document.getElementById('culture-report-title-dashboard').textContent = titleMap[cultureType];
 
-            const cultureReportList = document.getElementById('culture-report-list');
+            const cultureReportList = document.getElementById('culture-report-list-dashboard');
             cultureReportList.innerHTML = '';
             
             const reports = farmerReports.filter(r => r.cultureType === cultureType)
                                       .sort((a, b) => new Date(b.submissionDate) - new Date(a.submissionDate));
 
             if (reports.length === 0) {
-                cultureReportList.innerHTML = `<p class="text-gray-500 col-span-full text-center">No reports found for this culture type. Create your first one!</p>`;
+                cultureReportList.innerHTML = `<p class="text-gray-500 col-span-full text-center py-8">No reports found for this culture type. Create your first one!</p>`;
             } else {
                 reports.forEach(report => {
                     const reportCard = `
@@ -575,9 +673,8 @@
                     cultureReportList.insertAdjacentHTML('beforeend', reportCard);
                 });
             }
-            showFarmerSection('farmer-culture-reports-section');
+            showFarmerSection('farmer-dashboard-section');
         }
-
 
         // --- View Farmer Report ---
         const reportDetailsContent = document.getElementById('report-details-content');
@@ -768,6 +865,66 @@
             showVetSection('vet-report-view-section');
         }
 
+        // --- Government Portal ---
+        function renderGovDashboard() {
+            const farmerContainer = document.getElementById('all-farmer-reports-container');
+            const vetContainer = document.getElementById('all-vet-reports-container');
+
+            // Render Farmer Reports Table
+            let farmerTable = `
+                <table class="w-full text-sm text-left text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Submission Date</th>
+                            <th scope="col" class="px-6 py-3">Culture Type</th>
+                            <th scope="col" class="px-6 py-3">Animal Type</th>
+                            <th scope="col" class="px-6 py-3">Animal ID</th>
+                            <th scope="col" class="px-6 py-3">Pen / Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+            farmerReports.forEach(r => {
+                farmerTable += `
+                    <tr class="bg-white border-b hover:bg-gray-50">
+                        <td class="px-6 py-4">${r.submissionDate}</td>
+                        <td class="px-6 py-4 capitalize">${r.cultureType}</td>
+                        <td class="px-6 py-4">${r.general.animalType}</td>
+                        <td class="px-6 py-4">${r.general.animalId}</td>
+                        <td class="px-6 py-4">${r.general.animalPen}</td>
+                    </tr>`;
+            });
+            farmerTable += `</tbody></table>`;
+            if (farmerReports.length === 0) farmerTable = `<p class="text-center text-gray-500 py-4">No farmer data submitted yet.</p>`;
+            farmerContainer.innerHTML = farmerTable;
+
+            // Render Vet Reports Table
+            let vetTable = `
+                <table class="w-full text-sm text-left text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Visit Date</th>
+                            <th scope="col" class="px-6 py-3">Farm Name</th>
+                            <th scope="col" class="px-6 py-3">Farmer Name</th>
+                            <th scope="col" class="px-6 py-3">Reason for Visit</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+            vetReports.forEach(r => {
+                const farm = farms.find(f => f.id === r.farmId) || {};
+                vetTable += `
+                    <tr class="bg-white border-b hover:bg-gray-50">
+                        <td class="px-6 py-4">${r.visitDate}</td>
+                        <td class="px-6 py-4">${farm.name || 'N/A'}</td>
+                        <td class="px-6 py-4">${farm.farmerName || 'N/A'}</td>
+                        <td class="px-6 py-4">${r.reason}</td>
+                    </tr>`;
+            });
+            vetTable += `</tbody></table>`;
+             if (vetReports.length === 0) vetTable = `<p class="text-center text-gray-500 py-4">No veterinarian reports filed yet.</p>`;
+            vetContainer.innerHTML = vetTable;
+        }
+
+
         // --- Shared Functions & Elements ---
         const successModal = document.getElementById('successModal');
         const successMessage = document.getElementById('successMessage');
@@ -789,9 +946,10 @@
             document.getElementById('registrationForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 showFarmerSection('farmer-dashboard-section');
+                resetFarmerDashboardView();
             });
 
-            document.getElementById('createNewCultureReportBtn').addEventListener('click', () => {
+            document.getElementById('createNewCultureReportBtnDashboard').addEventListener('click', () => {
                 document.getElementById('farmerAmuForm').reset();
                 farmerFeedContainer.innerHTML = '';
                 farmerOtherContainer.innerHTML = '';
@@ -927,10 +1085,14 @@
                 vetForm.reset();
                 viewFarmReports(currentFarmId);
             });
+            
+            // --- Government Portal Logic ---
+            document.getElementById('govLoginForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                govAdminBypass();
+            });
         });
     </script>
 </body>
 </html>
-
-
 
